@@ -1,0 +1,28 @@
+.h-300 {
+  min-height: 300px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+.h-300::-webkit-scrollbar {
+  width: 5px;
+}
+/* Track */
+.h-300::-webkit-scrollbar-track {
+  background: #F5F5F5;
+}
+/* Handle */
+.h-300::-webkit-scrollbar-thumb {
+  background: #3bafda;
+}
+/* Handle on hover */
+.h-300::-webkit-scrollbar-thumb:hover {
+  background: #3bafda;
+}
+.all-sec {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #fff;
+}
+.dropdown-toggle::after {
+  display: none;
+}

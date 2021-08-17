@@ -1,0 +1,127 @@
+<div class="row">
+  <div class="col-12">
+    <div class="page-title-box d-flex justify-content-between align-items-center">
+      <h4 class="page-title">Leave Type Details</h4>
+      <button type="button" class="btn btn-primary waves-effect waves-light" (click)="openModal()">Add New</button>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <!--    <h4 class="header-title">Table head options</h4>-->
+    <!--    <p class="sub-header">-->
+    <!--      Use one of two modifier classes to make <code>&lt;thead&gt;</code>s appear light-->
+    <!--      or dark gray.-->
+    <!--    </p>-->
+
+    <div class="table-responsive">
+      <table class="table mb-0">
+        <thead class="table-light">
+        <tr>
+          <th style="width: 10%">#</th>
+          <th style="width: 20%">Code</th>
+          <th style="width: 30%">Name</th>
+          <th style="width: 20%; text-align: center">Status</th>
+          <th class="text-right" style="width: 20%">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <ng-container *ngFor="let indexvalue of list; let i = index">
+          <tr>
+            <th scope="row">{{i + 1}}</th>
+            <td>{{indexvalue?.code}}</td>
+            <td>{{indexvalue?.name}}</td>
+            <td style="text-align: center">
+              <span *ngIf="indexvalue?.status === true " class="activeStatus">Active</span>
+              <span *ngIf="indexvalue?.status === false " class="inactiveStatus">Inactive</span>
+            </td>
+            <td class="text-right">
+              <button type="button" class="btn btn-light waves-effect waves-light" style="padding: 4px 8px;" (click)="editIndex(indexvalue?.id)">
+                <i class="fas fa-edit text-primary"></i>
+              </button>
+            </td>
+          </tr>
+        </ng-container>
+        </tbody>
+      </table>
+    </div> <!-- end table-responsive-->
+
+    <div class="pagination_main">
+      <ngb-pagination [(page)]="page" (pageChange)="loadPage(page)" [pageSize]="perPage" [collectionSize]="totalPages" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>
+      <div class="dropdown">
+        <a class="btn dropdown-toggle btn-light btn-sm"  role="button" id="pagination_btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="page_count">
+                        {{perPageValue}}
+                    </span>
+          <i _ngcontent-eoh-c3="" class="mdi mdi-chevron-down"></i>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="pagination_btn">
+          <a class="dropdown-item" (click)="selectPaginationLimit(25)">25</a>
+          <a class="dropdown-item" (click)="selectPaginationLimit(50)">50</a>
+          <a class="dropdown-item" (click)="selectPaginationLimit(75)">75</a>
+          <a class="dropdown-item" (click)="selectPaginationLimit(100)">100</a>
+          <a class="dropdown-item" (click)="selectPaginationLimit('')">All</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="bankModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <form [formGroup]="leaveTypeForm" (ngSubmit)="onSubmit()">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" *ngIf="!editId">Add New Leave Type</h4>
+          <h4 class="modal-title" *ngIf="editId">Update Leave Type Details</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <!--COde-->
+            <div class="col-12 col-sm-6">
+              <div class="form-group">
+                <label>Code <span class="text-danger">*</span></label>
+                <input type="text" class="form-control form-control-sm name" placeholder="Code" formControlName="code" [ngClass]="{'is-invalid': isAdd && this.leaveTypeForm.controls.code.errors}" >
+              </div>
+            </div>
+            <!--Name-->
+            <div class="col-12 col-sm-6">
+              <div class="form-group">
+                <label>Name <span class="text-danger">*</span></label>
+                <input type="text" class="form-control form-control-sm name" placeholder="Name" formControlName="name" [ngClass]="{'is-invalid': isAdd && this.leaveTypeForm.controls.name.errors}" >
+              </div>
+            </div>
+            <!--Description-->
+            <div class="col-12">
+              <div class="form-group">
+                <label>Description</label>
+                <textarea type="text" style="min-height: 70px" class="form-control form-control-sm name" placeholder="Description" formControlName="description" > </textarea>
+              </div>
+            </div>
+            <!--Status-->
+            <div class="col-12 col-sm-6">
+              <div class="form-group">
+                <label>Status <span class="text-danger">*</span></label>
+                <select class="form-control form-control-sm" formControlName="status" [ngClass]="{ 'is-invalid': isAdd && this.leaveTypeForm.controls.status.errors }" >
+                  <option [ngValue]=true>Active</option>
+                  <option [ngValue]=false >Inactive</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button class="btn btn-primary" type="submit" *ngIf="!editId">Add</button>
+          <button class="btn btn-primary" type="submit" *ngIf="editId">Update</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

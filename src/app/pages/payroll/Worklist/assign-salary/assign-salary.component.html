@@ -1,0 +1,79 @@
+
+<form [formGroup]="assignPayrollSalary" (ngSubmit)="submitPayrollSalary()"><!--Payroll Salary-->
+  <div *ngIf="salaryOnPayroll === true">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="m-0">Assign Salary</h4>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <!--Salary Amount-->
+          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+            <div class="form-group">
+              <label>Salary Amount <span class="text-danger">*</span></label>
+              <input type="number" class="form-control form-control-sm" placeholder="Salary Amount" name="salary_amount" id="amount" formControlName="amount" [ngClass]="{'is-invalid': isPayrollAdd && this.assignPayrollSalary.controls.amount.errors}">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Commission Salary-->
+  <div *ngIf="salaryOnPayroll === false">
+    <div class="card">
+      <div class="card-header d-flex align-items-center justify-content-between">
+        <h4 class="m-0">Assign Salary</h4>
+        <div>
+          <button type="button" class="btn btn-light waves-effect waves-light" style="padding: 4px 8px;" (click)="addMoreClasses()">
+            <i class="fas fa-plus text-primary"></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <td style="width: 40%">Select Class</td>
+                <td style="width: 25%">Salary Type</td>
+                <td style="width: 25%">Amount</td>
+                <td style="width: 10%" class="text-right">Action</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr formArrayName="list" *ngFor="let group of this.controlsSalary.controls; let i = index">
+                <ng-container [formGroupName]="i">
+                  <td>
+                    <select class="form-control form-control-sm" formControlName="class" [ngClass]="{ 'is-invalid': isPayrollAdd && group.controls.class.errors }">
+                      <option [value]="''">Select Class</option>
+                      <option *ngFor="let c of classList" [value]="c.id">{{c.name}}</option>
+                    </select>
+                  </td>
+                  <td>
+                    <select class="form-control form-control-sm" formControlName="salary_type" [ngClass]="{ 'is-invalid': isPayrollAdd && group.controls.salary_type.errors }">
+                      <option [value]=0>Day Wise</option>
+                      <option [value]=1>Lecture Wise</option>
+                    </select>
+                  </td>
+                  <td>
+                    <input type="number" class="form-control form-control-sm" placeholder="Amount" formControlName="amount" [ngClass]="{ 'is-invalid': isPayrollAdd && group.controls.amount.errors }" />
+                  </td>
+                  <td class="text-right">
+                    <button type="button" class="btn btn-light waves-effect waves-light" style="padding: 4px 8px;" (click)="removeClasses(i)">
+                      <i class="fas fa-trash-alt text-primary"></i>
+                    </button>
+                  </td>
+                </ng-container>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--submit button-->
+  <div class="text-right mt-3">
+    <button class="btn btn-sm btn-primary" type="submit">Save Changes</button>
+  </div>
+</form>

@@ -1,0 +1,51 @@
+<form [formGroup]="deductionForm" (ngSubmit)="onSubmit()">
+  <div class="card">
+    <div class="card-header d-flex align-items-center justify-content-between">
+      <h4 class="m-0">Add Deduction</h4>
+      <div>
+        <button type="button" class="btn btn-light waves-effect waves-light" (click)="appendDeduction()" style="padding: 4px 8px;">
+          <i class="fas fa-plus text-primary"></i>
+        </button>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive" *ngIf="controlsDeduction.controls">
+        <table class="table">
+          <thead>
+          <tr>
+            <td style="width: 30%">Select Deduction</td>
+            <td style="width: 30%">Calculated/Fixed</td>
+            <td style="width: 30%">Amount</td>
+            <td style="width: 30%" class="text-right">Action</td>
+          </tr>
+          </thead>
+          <tbody>
+          <tr formArrayName="list" *ngFor="let group of controlsDeduction.controls; let i = index">
+            <ng-container [formGroupName]="i">
+              <td>
+                <select class="form-control form-control-sm" (change)="selectedDeduction($event.target.value, i)" formControlName="name" [ngClass]="{ 'is-invalid': isDeductionAdd && group.controls.name.errors }">
+                  <option [value]="''">Select Deduction</option>
+                  <option *ngFor="let c of deductionList" [value]="c.id">{{c.name}}</option>
+                </select>
+              </td>
+              <td>{{group.get('calculated_fixed').value}}</td>
+              <td>
+                <input type="number" class="form-control form-control-sm" placeholder="Amount" formControlName="amount_percentage" [ngClass]="{ 'is-invalid': isDeductionAdd && group.controls.amount_percentage.errors }"/>
+              </td>
+              <td class="text-right">
+                <button type="button" class="btn btn-light waves-effect waves-light" style="padding: 4px 8px;" (click)="removeDeduction(i)">
+                  <i class="fas fa-trash-alt text-primary"></i>
+                </button>
+              </td>
+            </ng-container>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <!--submit button-->
+  <div class="text-right mt-3">
+    <button class="btn btn-sm btn-primary" type="submit">Save Changes</button>
+  </div>
+</form>

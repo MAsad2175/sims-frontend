@@ -1,0 +1,93 @@
+<form [formGroup]="EducationForm" (ngSubmit)="onEducationSubmit()">
+
+  <!--begin::Card-->
+  <div class="card card-custom gutter-b">
+
+    <div class="card-header">
+      <h4 class="m-0">Educational Details</h4>
+    </div>
+
+    <div class="card-body ">
+      <div class="row">
+        <!--Degree Title-->
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+          <div class="form-group">
+            <label>Degree Title <span class="text-danger">*</span></label>
+            <input type="text" class="form-control form-control-sm" placeholder="Degree Title" formControlName="degree_title" [ngClass]="{ 'is-invalid': isEducationSubmit && this.EducationForm.controls.degree_title.errors }" />
+          </div>
+        </div>
+        <!--Passing Year-->
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+          <div class="form-group">
+            <label>Passing Year <span class="text-danger">*</span></label>
+            <input type="text" class="form-control form-control-sm passing_year" placeholder="Passing Year" id="passing_year" readonly="readonly" placeholder="Select from date" formControlName="passing_year" [ngClass]="{ 'is-invalid': isEducationSubmit && this.EducationForm.controls.passing_year.errors }">
+          </div>
+        </div>
+        <!--University/College/Institute-->
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+          <div class="form-group">
+            <label>University/College/Institute<span class="text-danger">*</span></label>
+            <input type="text" class="form-control form-control-sm" placeholder="University/College/Institute" formControlName="institute_name" [ngClass]="{ 'is-invalid': isEducationSubmit && this.EducationForm.controls.institute_name.errors }" />
+          </div>
+        </div>
+        <!--Grade/GPA/Percentage-->
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+          <div class="form-group">
+            <label>Grade/GPA/Percentage <span class="text-danger">*</span></label>
+            <input type="text" class="form-control form-control-sm" id="grade" placeholder="Grade/GPA/Percentage" formControlName="marks_obtain" [ngClass]="{ 'is-invalid': isEducationSubmit && this.EducationForm.controls.marks_obtain.errors }" />
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-12 align-self-end">
+          <div class="form-group">
+            <!--submit button-->
+            <div class="text-right mt-3">
+              <button class="btn btn-sm btn-primary" type="submit">Save Education Changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!--end::Card-->
+
+  <!--begin::Card-->
+  <div class="card card-custom gutter-b">
+    <div class="card-header">
+      <h4 class="m-0">Educational Document List</h4>
+    </div>
+    <div class="card-body" *ngIf="educationalListing">
+      <div class="table-responsive">
+        <table class="table mb-0">
+          <thead class="table-light">
+          <tr>
+            <th style="width: 25%">Degree Title</th>
+            <th style="width: 15%">Passing Year</th>
+            <th style="width: 30%">Institute</th>
+            <th style="width: 20%">Grades</th>
+            <th style="width: 10%" class="text-right">Action</th>
+          </tr>
+          </thead>
+          <tbody *ngIf="educationalListing">
+          <ng-container *ngFor="let indexvalue of educationalListing; let i = index">
+            <tr>
+              <td>{{indexvalue?.degree_title}}</td>
+              <td>{{indexvalue?.passing_year}}</td>
+              <td>{{indexvalue?.institute_name}}</td>
+              <td>{{indexvalue?.marks_obtain}}</td>
+              <td class="text-right">
+                <button type="button" class="btn btn-light waves-effect waves-light" style="padding: 4px 8px;" (click)="editEducationIndex(indexvalue?.id)">
+                  <i class="fas fa-edit text-primary"></i>
+                </button>
+              </td>
+            </tr>
+          </ng-container>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+  <!--end::Card-->
+
+</form>

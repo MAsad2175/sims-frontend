@@ -1,0 +1,35 @@
+<div id="wrapper">
+
+    <app-topbar (settingsButtonClicked)="onSettingsButtonClicked()"
+    (mobileMenuButtonClicked)="onToggleMobileMenu()"></app-topbar>
+
+    <app-sidebar [isCondensed]="isCondensed"></app-sidebar>
+
+<!--    <div class="submenu">-->
+<!--        <div class="main">-->
+<!--            <div class="dropdown show">-->
+<!--                <a class="link-button dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                    Dropdown link-->
+<!--                </a>-->
+
+<!--                <div class="dropdown-menu" style="margin-top: 10px; box-shadow: rgb(82 63 105 / 15%) 0px 15px 50px 0px;" aria-labelledby="dropdownMenuLink">-->
+<!--                    <a class="dropdown-item" href="#">Action</a>-->
+<!--                    <a class="dropdown-item" href="#">Another action</a>-->
+<!--                    <a class="dropdown-item" href="#">Something else here</a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+    <div class="content-page">
+        <div class="content">
+            <!-- content -->
+            <router-outlet></router-outlet>
+        </div>
+
+        <!-- footer -->
+<!--        <app-footer></app-footer>-->
+    </div>
+</div>
+
+<app-rightsidebar></app-rightsidebar>

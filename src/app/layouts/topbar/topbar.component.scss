@@ -1,0 +1,12 @@
+.dropdown-toggle::after {
+  display: none;
+}
+span.name_zero {
+  text-transform: capitalize;
+  padding: 3px 8px;
+  border-radius: 2px;
+  background-color: #C9F7F5;
+  color: #1BC5BD;
+  margin-left: 6px;
+  margin-right: 6px;
+}

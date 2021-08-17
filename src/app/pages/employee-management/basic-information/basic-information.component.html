@@ -1,0 +1,316 @@
+<form [formGroup]="addBasicInfomarion" (ngSubmit)="submitBasicInfomarion()" >
+
+  <!--begin::Card-->
+  <div class="card">
+
+    <div class="card-header">
+      <h4 class="m-0">Profile Image</h4>
+    </div>
+
+    <div class="card-body">
+      <div class="row">
+        <!-- Upload image input-->
+        <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm" style="box-shadow: 0 0.75rem 6rem rgb(56 65 74 / 10%) !important;">
+          <input id="upload" type="file" (change)="uploadProfileImage($event)" class="form-control border-0">
+          <label id="upload-label" for="upload" class="font-weight-light text-muted d-none">Choose file</label>
+          <div class="input-group-append">
+            <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload mr-2 text-muted"></i><small class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
+          </div>
+        </div>
+
+        <!-- Uploaded image area-->
+        <!--                  <p class="font-italic text-white text-center">The image uploaded will be rendered inside the box below.</p>-->
+        <div class="image-area p-0 text-center w-100 mt-2"><img id="upload_image" style="width: auto; max-height: 200px;" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
+
+      </div>
+    </div>
+  </div>
+
+  <!--begin::Card-->
+  <div class="card">
+
+    <div class="card-header">
+      <h4 class="m-0">Basic Profile</h4>
+    </div>
+
+    <div class="card-body">
+      <div class="row">
+        <!--                  <div class="col-12">-->
+        <!--                    &lt;!&ndash;Profile Image&ndash;&gt;-->
+        <!--                    <div class="row mr-0 justify-content-end">-->
+        <!--                      &lt;!&ndash;Image Upload&ndash;&gt;-->
+        <!--                      <div class="image-input image-input-empty image-input-outline mb-4" id="kt_image_5" style="position: relative">-->
+        <!--                        <img src="../../../../../assets/media/users/blank.png" class="ng s " style="object-fit: cover; margin: 0 !important; padding: 5px; max-width: 100%; height: 100%; border-radius: 10px; height: 120px; width: 120px" />-->
+        <!--                        <div class="image-input-wrapper" style="position: absolute;top: 0;"></div>-->
+        <!--                        <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="Change avatar">-->
+        <!--                          <i class="fa fa-pen icon-sm text-muted"></i>-->
+        <!--                          <input type="file" name="profile_avatar" accept=".png, .jpg, .jpeg" (change)="uploadProfileImage($event)"/>-->
+        <!--                          <input type="hidden" name="profile_avatar_remove"/>-->
+        <!--                        </label>-->
+        <!--                      </div>-->
+        <!--                    </div>-->
+        <!--                  </div>-->
+        <!--Salutation-->
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+          <div class="form-group">
+            <label>Salutation <span class="text-danger">*</span></label>
+            <select name="salutation" class="form-control form-control-sm" id="title" formControlName="salutation" [ngClass]="{'is-invalid': isBasicInfoSubmit && this.addBasicInfomarion.controls.salutation.errors}">
+              <option [value]="''">Select Salutation</option>
+              <ng-container *ngFor="let sal of salutationList">
+                <option [value]="sal.id">{{sal.name}}</option>
+              </ng-container>
+            </select>
+          </div>
+        </div>
+        <!--First Name-->
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+          <div class="form-group">
+            <label>First Name <span class="text-danger">*</span></label>
+            <input type="text" class="form-control form-control-sm allowaplhabets" name="first_name" id="first_name" placeholder="First Name" formControlName="first_name" [ngClass]="{'is-invalid': isBasicInfoSubmit && this.addBasicInfomarion.controls.first_name.errors}">
+          </div>
+        </div>
+        <!--Middle Name-->
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+          <div class="form-group">
+            <label>Middle Name</label>
+            <input type="text" class="form-control form-control-sm allowaplhabets" name="middle_name" id="middle_name" placeholder="Middle Name" formControlName="middle_name">
+          </div>
+        </div>
+        <!--Last Name-->
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+          <div class="form-group">
+            <label>Last Name <span class="text-danger">*</span></label>
+            <input type="text" class="form-control form-control-sm allowaplhabets" name="last_name" placeholder="Last Name" formControlName="last_name" [ngClass]="{'is-invalid': isBasicInfoSubmit && this.addBasicInfomarion.controls.last_name.errors}">
+          </div>
+        </div>
+        <!--Employee File No.-->
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+          <div class="form-group">
+            <label>Employee File No. <span class="text-danger">*</span></label>
+            <input type="text" class="form-control form-control-sm" name="teacher_file_no" id="employee_file_no" placeholder="Employee File No" formControlName="teacher_file_no" [ngClass]="{'is-invalid': isBasicInfoSubmit && this.addBasicInfomarion.controls.teacher_file_no.errors}">
+          </div>
+        </div>
+        <!--Hired On-->
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+          <div class="form-group">
+            <label>Hired On:</label>
+            <input type="text" class="form-control form-control-sm" name="hired_on" id="hired_on" readonly="readonly" placeholder="Hired On" formControlName="hired_on">
+          </div>
+        </div>
+        <!--Joined On-->
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+          <div class="form-group">
+            <label>Joined On:</label>
+            <input type="text" class="form-control form-control-sm" name="joined_on" id="join_on" readonly="readonly" placeholder="Joined On" formControlName="joined_on">
+          </div>
+        </div>
+        <!--Department-->
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+          <div class="form-group">
+            <label>Department <span class="text-danger">*</span></label>
+            <select name="gender" id="department" class="form-control form-control-sm" formControlName="department" [ngClass]="{'is-invalid': isBasicInfoSubmit && this.addBasicInfomarion.controls.department.errors}">
+              <option [value]="''">Select Department</option>
+              <ng-container *ngFor="let d of departmentList">
+                <option [value]="d.id">{{d.name}}</option>
+              </ng-container>
+            </select>
+          </div>
+        </div>
+        <!--Designation-->
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+          <div class="form-group">
+            <label>Designation <span class="text-danger">*</span></label>
+            <select name="gender" id="designation" class="form-control form-control-sm" formControlName="designation" [ngClass]="{'is-invalid': isBasicInfoSubmit && this.addBasicInfomarion.controls.designation.errors}">
+              <option [value]="''">Select Designation</option>
+              <ng-container *ngFor="let d of designationList">
+                <option [value]="d.id">{{d.name}}</option>
+              </ng-container>
+            </select>
+          </div>
+        </div>
+        <!--Salary Model-->
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+          <div class="form-group">
+            <label>Salary Model <span class="text-danger">*</span></label>
+            <select name="salary_model" id="salary_model" class="form-control form-control-sm" formControlName="salary_model" [ngClass]="{'is-invalid': isBasicInfoSubmit && this.addBasicInfomarion.controls.salary_model.errors}">
+              <option [value]="''">Select Salary Model</option>
+              <ng-container *ngFor="let d of salryModelList">
+                <option [value]="d.id">{{d.name}}</option>
+              </ng-container>
+            </select>
+          </div>
+        </div>
+        <!--Gender-->
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+          <div class="form-group">
+            <label>Gender <span class="text-danger">*</span></label>
+            <select name="gender" id="gender" class="form-control form-control-sm" formControlName="gender" [ngClass]="{'is-invalid': isBasicInfoSubmit && this.addBasicInfomarion.controls.gender.errors}">
+              <option [value]="''">Select Gender</option>
+              <ng-container *ngFor="let gender of genderList">
+                <option [value]="gender.id">{{gender.name}}</option>
+              </ng-container>
+            </select>
+          </div>
+        </div>
+        <!--Blood Group-->
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+          <div class="form-group">
+            <label>Blood Group <span class="text-danger">*</span></label>
+            <select name="gender" class="form-control form-control-sm" formControlName="blood_group" [ngClass]="{'is-invalid': isBasicInfoSubmit && this.addBasicInfomarion.controls.blood_group.errors}">
+              <option [value]="''">Select Blood Group</option>
+              <ng-container *ngFor="let blood of bloodGroupList">
+                <option [value]="blood.id">{{blood.name}}</option>
+              </ng-container>
+            </select>
+          </div>
+        </div>
+        <!--Date Of Birth-->
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+          <div class="form-group">
+            <label>Date Of Birth <span class="text-danger">*</span></label>
+            <input type="text" class="form-control form-control-sm" name="dob" id="dob" readonly="readonly" placeholder="Date Of Birth" formControlName="dob" [ngClass]="{'is-invalid': isBasicInfoSubmit && this.addBasicInfomarion.controls.dob.errors}">
+          </div>
+        </div>
+        <!--National ID No-->
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+          <div class="form-group">
+            <label>National ID No <span class="text-danger">*</span></label>
+            <input type="text" id="nic" (keypress)="_onlyNumeric($event)" class="form-control form-control-sm" placeholder="National ID No" name="nic" id="nic" formControlName="nic" [ngClass]="{'is-invalid': isBasicInfoSubmit && this.addBasicInfomarion.controls.nic.errors}">
+          </div>
+        </div>
+        <!--National ID Expiray Date-->
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+          <div class="form-group">
+            <label>National ID Expiray Date</label>
+            <input type="text" class="form-control form-control-sm" name="nic_expiry_date" id="nic_expiry_date" readonly="readonly" placeholder="National ID Expiray Date" formControlName="nic_expiry_date">
+          </div>
+        </div>
+        <!--Passport No-->
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+          <div class="form-group">
+            <label>Passport No </label>
+            <input type="text" class="form-control form-control-sm" placeholder="Passport No" name="passport_no" id="passport_no" formControlName="passport_no">
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--End::Body-->
+
+  </div>
+  <!--end::Card-->
+
+
+  <!--begin::Card-->
+  <div class="card">
+
+    <div class="card-header">
+      <h4 class="m-0">Personal Information</h4>
+    </div>
+
+    <div class="card-body">
+      <div class="row">
+        <!--Country-->
+        <div class="col-xl-3 col-lg-4 col-md-4 col-sm-12 col-12">
+          <div class="form-group">
+            <label>Country<span class="text-danger">*</span></label>
+            <select class="form-control form-control-sm" formControlName="country" [ngClass]="{ 'is-invalid': isBasicInfoSubmit && this.addBasicInfomarion.controls.country.errors }" (change)="updateStates($event.target.value)">
+              <option value="" [selected]=true [disabled]="true">Select</option>
+              <ng-container *ngFor="let country of countries">
+                <option [value]="country.id">{{country.name}}</option>
+              </ng-container>
+            </select>
+          </div>
+        </div>
+        <!--State-->
+        <div class="col-xl-3 col-lg-4 col-md-4 col-sm-12 col-12">
+          <div class="form-group">
+            <label>State<span class="text-danger">*</span></label>
+            <select class="form-control form-control-sm" formControlName="state" [ngClass]="{ 'is-invalid': isBasicInfoSubmit && this.addBasicInfomarion.controls.state.errors }" (click)="updateCities($event.target.value)">
+              <option value="" [selected]=true [disabled]="true">Select</option>
+              <ng-container *ngFor="let state of states; let i = index">
+                <option [value]="state.id">{{state.name}}</option>
+              </ng-container>
+            </select>
+          </div>
+        </div>
+        <!--City-->
+        <div class="col-xl-3 col-lg-4 col-md-4 col-sm-12 col-12">
+          <div class="form-group">
+            <label>City<span class="text-danger">*</span></label>
+            <select class="form-control form-control-sm" formControlName="city" [ngClass]="{ 'is-invalid': isBasicInfoSubmit && this.addBasicInfomarion.controls.city.errors }">
+              <option value="" [selected]=true [disabled]="true">Select</option>
+              <ng-container *ngFor="let city of cities">
+                <option [value]="city.id">{{city.name}}</option>
+              </ng-container>
+            </select>
+          </div>
+        </div>
+        <!--Address-->
+        <div class="col-xl-3 col-lg-4 col-md-4 col-sm-12 col-12">
+          <div class="form-group">
+            <label>Address</label>
+            <input type="text" class="form-control form-control-sm" placeholder="Address" formControlName="address" >
+          </div>
+        </div>
+        <!--Primary Contact-->
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+          <div class="form-group">
+            <label>Primary Contact <span class="text-danger">*</span></label>
+            <input type="tel" class="form-control form-control-sm" (keypress)="_onlyNumeric($event)" placeholder="Primary Contact" name="primary_contact" id="primary_contact" formControlName="primary_contact" [ngClass]="{'is-invalid': isBasicInfoSubmit && this.addBasicInfomarion.controls.primary_contact.errors}">
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!--            begin::Card-->
+  <div class="card card-custom gutter-b">
+
+    <div class="card-header">
+      <h4 class="m-0">Banking Information</h4>
+    </div>
+
+    <div class="card-body">
+      <div class="row">
+        <!--Bank/Branch Name-->
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+          <div class="form-group">
+            <label>Bank/Branch Name <span class="text-danger">*</span></label>
+            <select class="form-control form-control-sm dropdown-menu-down" data-live-search="true"  name="bank_name" id="bank_name" formControlName="bank_name" [ngClass]="{'is-invalid': isBasicInfoSubmit && this.addBasicInfomarion.controls.bank_name.errors}">
+              <option [value]="''">Select Branch</option>
+              <ng-container *ngFor="let bank of bankList">
+                <option [value]="bank.id">{{bank.name}}</option>
+              </ng-container>
+            </select>
+          </div>
+        </div>
+        <!--Bank A/C No.-->
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+          <div class="form-group">
+            <label>Bank A/C No.</label>
+            <input class="form-control form-control-sm" name="bank_account_no" id="bank_account_no" placeholder="Bank A/C No." formControlName="bank_acc_no"/>
+          </div>
+        </div>
+        <!--Status-->
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+          <div class="form-group">
+            <label>Status <span class="text-danger">*</span></label>
+            <select class="form-control form-control-sm" name="status" id="status" formControlName="status" [ngClass]="{'is-invalid': isBasicInfoSubmit && this.addBasicInfomarion.controls.status.errors}">
+              <option [ngValue]=true>Active</option>
+              <option [ngValue]=false>Inactive</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!--end::Card-->
+
+  <!--submit button-->
+  <div class="text-right mt-3">
+    <button class="btn btn-sm btn-primary">Save Basic Changes</button>
+  </div>
+
+</form>

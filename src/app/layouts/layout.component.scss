@@ -1,0 +1,26 @@
+.submenu{
+  margin-left: 240px;
+  width: 100%;
+  position: fixed;
+  top: 70px;
+  padding: 20px 15px;
+  background: #fff;
+}
+.submenu .link-button {
+  padding: 10px;
+}
+.submenu .link-button::after {
+  display: none;
+}
+.submenu .link-button:hover,
+.submenu .link-button[aria-expanded="true"] {
+  color: #3699FF;
+  background-color: rgba(77, 89, 149, 0.06);
+}
+.submenu .link-button {
+  border-radius: 4px;
+  color: #6c7293;
+  font-weight: 500;
+  padding: 0.65rem 1.1rem;
+  margin-right: 10px;
+}

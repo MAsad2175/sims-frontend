@@ -1,0 +1,190 @@
+<div class="row">
+  <div class="col-12">
+    <div class="page-title-box d-flex justify-content-between align-items-center">
+      <h4 class="page-title">Assign Subject</h4>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+
+  <div class="col-12 col-sm-6 col-lg-4">
+    <div class="card">
+      <div class="card-header d-flex align-items-center justify-content-between">
+        <h5 class="m-0">Class</h5>
+        <button class="btn btn-light waves-effect waves-light" style="padding: 4px 8px; visibility: hidden" type="button" (click)="openSectionModal()">
+          <i class="fas fa-plus"></i>
+        </button>
+      </div>
+      <div class="card-body h-300">
+        <div class="all-row">
+          <div class="mb-3" *ngFor="let class of classList; let i = index" class="all-sec d-flex align-items-center justify-content-between" [ngClass]="{ 'activeStatus': classId === class.id }" (click)="getSectionOfSpecificClass(class?.id)">
+            <h6>{{class?.name}}</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 col-sm-6 col-lg-4">
+    <div class="card">
+      <div class="card-header d-flex align-items-center justify-content-between">
+        <h5 class="m-0">Section</h5>
+        <button class="btn btn-light waves-effect waves-light" style="padding: 4px 8px;" type="button" (click)="openSectionModal()">
+          <i class="fas fa-plus"></i>
+        </button>
+      </div>
+      <div class="card-body h-300">
+        <div class="mb-3" *ngFor="let section of sectionOfSpecificClass; let j = index" [ngClass]=" { 'activeStatus': sectionId === section?.section?.id }" (click)="getSubjectOfSpecificClass()" class="all-sec d-flex align-items-center justify-content-between">
+          <h6>{{section?.section?.name}}</h6>
+          <div class="dropdown">
+            <button type="button" class="btn btn-light waves-effect waves-light dropdown-toggle" style="padding: 4px 8px;" data-toggle="dropdown">
+              <i class="fas fa-pen"></i>
+            </button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" (click)="deleteSpecificIndexOfSection(section?.classes, section?.section?.id)">Delete</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 col-sm-6 col-lg-4">
+    <div class="card">
+      <div class="card-header d-flex align-items-center justify-content-between">
+        <h5 class="m-0">Subject</h5>
+        <button class="btn btn-light waves-effect waves-light" style="padding: 4px 8px;" type="button" (click)="openSubjectModal()">
+          <i class="fas fa-plus"></i>
+        </button>
+      </div>
+      <div class="card-body h-300">
+        <div class="all-sec activeStatus d-flex align-items-center justify-content-between">
+          <h6>English</h6>
+          <div class="dropdown">
+            <button type="button" class="btn btn-light waves-effect waves-light dropdown-toggle" style="padding: 4px 8px;" data-toggle="dropdown">
+              <i class="fas fa-pen"></i>
+            </button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" >Edit</a>
+              <a class="dropdown-item" >Delete</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Add New Section -->
+<div class="modal fade" id="sectionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <form [formGroup]="sectionForm" (ngSubmit)="onSectionSubmit()">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Add New Section</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <!--Add Class-->
+            <div class="col-12 col-sm-6">
+              <div class="form-group">
+                <label>Add Class <span class="text-danger">*</span></label>
+                <select class="form-control form-control-sm" formControlName="classes" [ngClass]="{ 'is-invalid': isSectionAdd && this.sectionForm.controls.classes.errors }" >
+                  <option [value]="''">Select Class</option>
+                  <option *ngFor="let c of classList" [value]="c.id">{{c.name}}</option>
+                </select>
+              </div>
+            </div>
+            <!--Add Section-->
+            <div class="col-12 col-sm-6">
+              <div class="form-group">
+                <label>Add Section <span class="text-danger">*</span></label>
+                <select class="form-control form-control-sm" formControlName="section" [ngClass]="{ 'is-invalid': isSectionAdd && this.sectionForm.controls.section.errors }" >
+                  <option [value]="''">Select Class</option>
+                  <option *ngFor="let c of sectionList" [value]="c.id">{{c.name}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button class="btn btn-primary" type="submit">Add</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Add New Subject -->
+<div class="modal fade" id="subjectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <form [formGroup]="subjectForm" (ngSubmit)="onSubjectSubmit()">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Add New Subject</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <!--Add Class-->
+            <div class="col-12 col-sm-6">
+              <div class="form-group">
+                <label>Add Class <span class="text-danger">*</span></label>
+                <select class="form-control form-control-sm" formControlName="classes" [ngClass]="{ 'is-invalid': isSubjectAdd && this.subjectForm.controls.classes.errors }" (change)="getSectionsForClassModal( $event.target.value )" >
+                  <option [value]="''">Select Class</option>
+                  <option *ngFor="let c of classList" [value]="c.id">{{c.name}}</option>
+                </select>
+              </div>
+            </div>
+            <!--Add Section-->
+            <div class="col-12 col-sm-6">
+              <div class="form-group">
+                <label>Add Section <span class="text-danger">*</span></label>
+                <select class="form-control form-control-sm" formControlName="section" [ngClass]="{ 'is-invalid': isSubjectAdd && this.subjectForm.controls.section.errors }" (change)="getSectionDetailClassModal( $event.target.value )" >
+                  <option [value]="''">Select Section</option>
+                  <option *ngFor="let c of sectionsListForClassModal" [value]="c.section.id">{{c.section.name}}</option>
+                </select>
+              </div>
+            </div>
+            <!--Add Subject-->
+            <div class="col-12 col-sm-6">
+              <div class="form-group">
+                <label>Add Subject <span class="text-danger">*</span></label>
+                <select class="form-control form-control-sm" formControlName="subject" [ngClass]="{ 'is-invalid': isSubjectAdd && this.subjectForm.controls.subject.errors }" (change)="getSubjectMarksForClassModal( $event.target.value )" >
+                  <option [value]="''">Select Subject</option>
+                  <option *ngFor="let c of subjectList" [value]="c.id">{{c.name}}</option>
+                </select>
+              </div>
+            </div>
+            <!--Total Marks-->
+            <div class="col-12 col-sm-6">
+              <div class="form-group">
+                <label>Total Marks <span class="text-danger">*</span></label>
+                <input type="number" class="form-control form-control-sm name" placeholder="Total Marks" formControlName="total_marks" [ngClass]="{'is-invalid': isSubjectAdd && this.subjectForm.controls.total_marks.errors}" >
+              </div>
+            </div>
+            <!--Passing Marks-->
+            <div class="col-12 col-sm-6">
+              <div class="form-group">
+                <label>Passing Marks <span class="text-danger">*</span></label>
+                <input type="number" class="form-control form-control-sm name" placeholder="Passing Marks" formControlName="passing_marks" [ngClass]="{'is-invalid': isSubjectAdd && this.subjectForm.controls.passing_marks.errors}" >
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button class="btn btn-primary" type="submit">Add</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

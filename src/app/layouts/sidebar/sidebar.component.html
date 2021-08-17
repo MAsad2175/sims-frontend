@@ -1,0 +1,159 @@
+<!-- ========== Left Sidebar Start ========== -->
+<ng-template #contentTemplate>
+    <!--- Sidemenu -->
+    <div id="sidebar-menu">
+        <ul class="metismenu" id="side-menu" #sideMenu>
+
+            <li class="menu-title">Navigation</li>
+
+            <li>
+                <a class="waves-effect">
+                    <i class="remixicon-stack-line"></i>
+                    <span>
+                        <a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="side-nav-link-ref">Dashboard</a>
+                     </span>
+                </a>
+            </li>
+
+            <li>
+                <a class="waves-effect">
+                    <i class="remixicon-stack-line"></i>
+                    <span> Configurations </span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <ul class="nav-second-level" aria-expanded="false">
+                    <li>
+                        <a routerLink="/configuration/bank" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="side-nav-link-ref" >Bank</a>
+                    </li>
+                    <li>
+                        <a routerLink="/configuration/salutation" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="side-nav-link-ref" >Salutation</a>
+                    </li>
+                    <li>
+                        <a routerLink="/configuration/gender" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="side-nav-link-ref" >Gender</a>
+                    </li>
+                    <li>
+                        <a routerLink="/configuration/blood-group" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="side-nav-link-ref" >Blood Group</a>
+                    </li>
+                    <li>
+                        <a routerLink="/configuration/user-type" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="side-nav-link-ref" >User Type</a>
+                    </li>
+                    <li>
+                        <a routerLink="/configuration/department" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="side-nav-link-ref" >Department</a>
+                    </li>
+                    <li>
+                        <a routerLink="/configuration/designation" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="side-nav-link-ref" >Designation</a>
+                    </li>
+                    <li>
+                        <a routerLink="/configuration/salary-model" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="side-nav-link-ref" >Salary Model</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a class="waves-effect">
+                    <i class="remixicon-stack-line"></i>
+                    <span> Emp Management </span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <ul class="nav-second-level" aria-expanded="false">
+                    <li>
+                        <a routerLink="/employee/add" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="side-nav-link-ref" >Add Employee</a>
+                    </li>
+                    <li >
+                        <a routerLink="/employee/details" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="side-nav-link-ref" >Employee's Listing</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="javascript: void(0);" class="waves-effect" aria-expanded="false">
+                    <i class="remixicon-folder-add-line"></i>
+                    <span> Academic </span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <ul class="nav-second-level nav" aria-expanded="false">
+                    <li>
+                        <a href="javascript: void(0);" aria-expanded="false">
+                            Configurations
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <ul class="nav-third-level nav" aria-expanded="false">
+                            <li>
+                                <a routerLink="/academic/class" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="side-nav-link-ref">Class</a>
+                            </li>
+                            <li>
+                                <a routerLink="/academic/section" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="side-nav-link-ref">Section</a>
+                            </li>
+                            <li>
+                                <a routerLink="/academic/subject" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="side-nav-link-ref">Subject</a>
+                            </li>
+                            <li>
+                                <a routerLink="/academic/assign-subject" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="side-nav-link-ref">Assign Subject</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript: void(0);" aria-expanded="false">
+                            Worklist
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <ul class="nav-third-level nav" aria-expanded="false">
+
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="javascript: void(0);" class="waves-effect" aria-expanded="false">
+                    <i class="remixicon-folder-add-line"></i>
+                    <span> Payroll </span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <ul class="nav-second-level nav" aria-expanded="false">
+                    <li>
+                        <a href="javascript: void(0);" aria-expanded="false">
+                            Configurations
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <ul class="nav-third-level nav" aria-expanded="false">
+                            <li>
+                                <a routerLink="/payroll/allowance-deduction" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="side-nav-link-ref">Allowance/deduction</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript: void(0);" aria-expanded="false">
+                            Worklist
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <ul class="nav-third-level nav" aria-expanded="false">
+                            <li>
+                                <a routerLink="/payroll/employee-details" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="side-nav-link-ref">Employee's Detail</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+
+        </ul>
+
+    </div>
+    <!-- End Sidebar -->
+
+    <div class="clearfix"></div>
+</ng-template>
+
+
+<div class="left-side-menu">
+
+    <div class="slimscroll-menu" appSlimScroll *ngIf="!isCondensed">
+        <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+    </div>
+
+    <div class="slimscroll-menu" *ngIf="isCondensed">
+        <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+    </div>
+
+</div>
+<!-- Left Sidebar End -->
