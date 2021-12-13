@@ -27,7 +27,7 @@ export class QualificationInformationComponent implements OnInit {
               private route: ActivatedRoute,
               private fb: FormBuilder) {
     this.route.queryParams.subscribe(params => {
-      this.employeeId = Number(params.id);
+      this.employeeId = params.id;
       if (this.employeeId) {
         this.getEducationalDate();
         this.getEducationDetailListing();
@@ -62,7 +62,7 @@ export class QualificationInformationComponent implements OnInit {
     this.ngxLoader.start();
     this.employeeService.getSingleeducationDetail(id).subscribe(data => {
       this.educationSingledata = data;
-      this.educationSingledataid = data.id;
+      this.educationSingledataid = data._id;
       this.EducationForm.patchValue({
         degree_title: this.educationSingledata.degree_title,
         passing_year: this.educationSingledata.passing_year,
@@ -83,14 +83,13 @@ export class QualificationInformationComponent implements OnInit {
   onEducationSubmit(): any {
     this.isEducationSubmit = true;
     const datePS = $('.passing_year').val();
-    console.log('datePS', datePS);
     this.EducationForm.get('passing_year').setValue(datePS);
     if (this.EducationForm.invalid) {
       return;
     }
     if (this.educationSingledataid) {
       this.ngxLoader.start();
-      this.employeeService.updateEducation(this.EducationForm.value, this.educationSingledata.id).subscribe(data => {
+      this.employeeService.updateEducation(this.EducationForm.value, this.educationSingledata._id).subscribe(data => {
         this.isEducationSubmit = false;
         this.EducationForm.reset();
         this.getEducationDetailListing();
@@ -101,8 +100,7 @@ export class QualificationInformationComponent implements OnInit {
         this.ngxLoader.stop();
         toastr.error(err.error.error);
       });
-    }
-    else {
+    } else {
       this.ngxLoader.start();
       this.employeeService.addEducation(this.EducationForm.value, this.employeeId).subscribe(data => {
         this.isEducationSubmit = false;

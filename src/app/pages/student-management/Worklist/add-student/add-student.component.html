@@ -1,0 +1,254 @@
+<div class="row">
+  <div class="col-12">
+    <div class="page-title-box d-flex justify-content-between align-items-center">
+      <h4 class="page-title">Add Student</h4>
+      <button type="button" class="btn btn-primary waves-effect waves-light" [routerLink]="'/student'">Back</button>
+    </div>
+  </div>
+</div>
+
+<!--begin::Content-->
+<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+  <form [formGroup]="studentForm" (ngSubmit)="onSubmit()" >
+
+    <!--begin::Card-->
+    <div class="card">
+
+      <div class="card-header">
+        <h4 class="m-0">Profile Image</h4>
+      </div>
+
+      <div class="card-body">
+        <div class="row">
+          <!-- Upload image input-->
+          <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm" style="box-shadow: 0 0.75rem 6rem rgb(56 65 74 / 10%) !important;">
+            <input id="upload" type="file" (change)="uploadProfileImage($event)" class="form-control border-0">
+            <label id="upload-label" for="upload" class="font-weight-light text-muted d-none">Choose file</label>
+            <div class="input-group-append">
+              <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload mr-2 text-muted"></i><small class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
+            </div>
+          </div>
+
+          <!-- Uploaded image area-->
+          <!--                  <p class="font-italic text-white text-center">The image uploaded will be rendered inside the box below.</p>-->
+          <div class="image-area p-0 text-center w-100 mt-2"><img id="upload_image" style="width: auto; max-height: 200px;" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
+
+        </div>
+      </div>
+    </div>
+
+    <!--begin::Card-->
+    <div class="card">
+
+      <div class="card-header">
+        <h4 class="m-0">Student Information</h4>
+      </div>
+
+      <div class="card-body">
+        <div class="row">
+          <!--First Name-->
+          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+            <div class="form-group">
+              <label>First Name <span class="text-danger">*</span></label>
+              <input type="text" class="form-control form-control-sm allowaplhabets" name="first_name" id="first_name" placeholder="First Name" formControlName="first_name" [ngClass]="{'is-invalid': isAdd && this.studentForm.controls.first_name.errors}">
+            </div>
+          </div>
+          <!--Middle Name-->
+          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+            <div class="form-group">
+              <label>Middle Name</label>
+              <input type="text" class="form-control form-control-sm allowaplhabets" name="middle_name" id="middle_name" placeholder="Middle Name" formControlName="middle_name">
+            </div>
+          </div>
+          <!--Last Name-->
+          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+            <div class="form-group">
+              <label>Last Name <span class="text-danger">*</span></label>
+              <input type="text" class="form-control form-control-sm allowaplhabets" name="last_name" placeholder="Last Name" formControlName="last_name" [ngClass]="{'is-invalid': isAdd && this.studentForm.controls.last_name.errors}">
+            </div>
+          </div>
+          <!--Registration No.-->
+          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+            <div class="form-group">
+              <label>Registration No. <span class="text-danger">*</span></label>
+              <input type="text" class="form-control form-control-sm allowaplhabets" name="registration_no" placeholder="Registration No." formControlName="registration_no" [ngClass]="{'is-invalid': isAdd && this.studentForm.controls.registration_no.errors}">
+            </div>
+          </div>
+          <!--Select Class-->
+          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+            <div class="form-group">
+              <label>Select Class <span class="text-danger">*</span></label>
+              <div [ngClass]="{'is-invalid': isAdd && this.studentForm.controls.class.errors}">
+                <select name="select_class" class="form-control form-control-sm" id="class" data-live-search="true" formControlName="class" >
+                  <option [value]="''">Select Class</option>
+                  <ng-container *ngFor="let c of classList">
+                    <option [value]="c._id">{{c.name}}</option>
+                  </ng-container>
+                </select>
+              </div>
+            </div>
+          </div>
+          <!--Admission Date-->
+          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+            <div class="form-group">
+              <label>Admission Date: <span class="text-danger">*</span></label>
+              <input type="text" class="form-control form-control-sm" name="admission_date" id="admission_date" readonly="readonly" placeholder="Admission Date" formControlName="admission_date" [ngClass]="{'is-invalid': isAdd && this.studentForm.controls.admission_date.errors}">
+            </div>
+          </div>
+          <!--Mobile No.-->
+          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+            <div class="form-group">
+              <label>Mobile No.</label>
+              <input type="tel" class="form-control form-control-sm" (keypress)="_onlyNumeric($event)" placeholder="Mobile No." name="mobile_no" id="mobile_no" formControlName="mobile_no">
+            </div>
+          </div>
+          <!--Status-->
+          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+            <div class="form-group">
+              <label>Status <span class="text-danger">*</span></label>
+              <select class="form-control form-control-sm" name="status" id="status" formControlName="status" >
+                <option [ngValue]=true>Active</option>
+                <option [ngValue]=false>Inactive</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--End::Body-->
+
+    </div>
+    <!--end::Card-->
+
+    <!--begin::Card-->
+    <div class="card">
+
+      <div class="card-header">
+        <h4 class="m-0">Other Info</h4>
+      </div>
+
+      <div class="card-body">
+        <div class="row">
+          <!--Date Of Birth-->
+          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+            <div class="form-group">
+              <label>Date Of Birth <span class="text-danger">*</span></label>
+              <input type="text" class="form-control form-control-sm allowaplhabets" readonly="readonly" name="dob" id="dob" placeholder="First Name" formControlName="dob" [ngClass]="{'is-invalid': isAdd && this.studentForm.controls.dob.errors}">
+            </div>
+          </div>
+          <!--B-Form/CNIC-->
+          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+            <div class="form-group">
+              <label>B-Form/CNIC <span class="text-danger">*</span></label>
+              <input type="text" class="form-control form-control-sm allowaplhabets" name="nic" id="nic" placeholder="B-Form/CNIC" formControlName="nic" [ngClass]="{'is-invalid': isAdd && this.studentForm.controls.nic.errors}">
+            </div>
+          </div>
+          <!--Orphen Student-->
+          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+            <div class="form-group">
+              <label>Orphen Student <span class="text-danger">*</span></label>
+              <select class="form-control form-control-sm" formControlName="orphen_student" [ngClass]="{'is-invalid': isAdd && this.studentForm.controls.orphen_student.errors}">
+                <option [ngValue]=true>Yes</option>
+                <option [ngValue]=false>No</option>
+              </select>
+            </div>
+          </div>
+          <!--Gender-->
+          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+            <div class="form-group">
+              <label>Gender <span class="text-danger">*</span></label>
+              <select name="gender" id="gender" class="form-control form-control-sm" formControlName="gender" [ngClass]="{'is-invalid': isAdd && this.studentForm.controls.gender.errors}">
+                <option [value]="''">Select Gender</option>
+                <ng-container *ngFor="let gender of genderList">
+                  <option [value]="gender._id">{{gender.name}}</option>
+                </ng-container>
+              </select>
+            </div>
+          </div>
+          <!--Cast-->
+          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+            <div class="form-group">
+              <label>Cast</label>
+              <input type="text" class="form-control form-control-sm allowaplhabets" name="nic" id="cast" placeholder="Cast" formControlName="cast">
+            </div>
+          </div>
+          <!--Religion-->
+          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+            <div class="form-group">
+              <label>Religion <span class="text-danger">*</span></label>
+              <select name="religion" id="religion" class="form-control form-control-sm" formControlName="religion" [ngClass]="{'is-invalid': isAdd && this.studentForm.controls.religion.errors}">
+                <option [value]="''">Select Gender</option>
+                <ng-container *ngFor="let religion of religionList">
+                  <option [value]="religion._id">{{religion.name}}</option>
+                </ng-container>
+              </select>
+            </div>
+          </div>
+          <!--Address-->
+          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+            <div class="form-group">
+              <label>Address <span class="text-danger">*</span></label>
+              <input type="text" class="form-control form-control-sm allowaplhabets" name="address" id="address" placeholder="Address" formControlName="address" [ngClass]="{'is-invalid': isAdd && this.studentForm.controls.address.errors}">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--end::Card-->
+
+    <!--begin::Card-->
+    <div class="card">
+
+      <div class="card-header">
+        <h4 class="m-0">Father Info</h4>
+      </div>
+
+      <div class="card-body">
+        <div class="row">
+          <!--Father Name-->
+          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+            <div class="form-group">
+              <label>Father Name <span class="text-danger">*</span></label>
+              <input type="text" class="form-control form-control-sm allowaplhabets" name="father_name" id="father_name" placeholder="Father Name" formControlName="father_name" [ngClass]="{'is-invalid': isAdd && this.studentForm.controls.father_name.errors}">
+            </div>
+          </div>
+          <!--Father CNIC-->
+          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+            <div class="form-group">
+              <label>Father CNIC <span class="text-danger">*</span></label>
+              <input type="text" class="form-control form-control-sm allowaplhabets" name="father_nic" id="father_nic" placeholder="Father CNIC" formControlName="father_nic" [ngClass]="{'is-invalid': isAdd && this.studentForm.controls.father_nic.errors}">
+            </div>
+          </div>
+          <!--Father Education-->
+          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+            <div class="form-group">
+              <label>Education</label>
+              <input type="text" class="form-control form-control-sm allowaplhabets" name="father_education" id="father_education" placeholder="Father Education" formControlName="father_education">
+            </div>
+          </div>
+          <!--Father Mobile No.-->
+          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+            <div class="form-group">
+              <label>Mobile No. <span class="text-danger">*</span></label>
+              <input type="text" class="form-control form-control-sm allowaplhabets" name="father_mobile_no" id="father_mobile_no" placeholder="Mobile No." formControlName="father_mobile_no" [ngClass]="{'is-invalid': isAdd && this.studentForm.controls.father_mobile_no.errors}">
+            </div>
+          </div>
+          <!--Father Profession-->
+          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+            <div class="form-group">
+              <label>Profession <span class="text-danger">*</span></label>
+              <input type="text" class="form-control form-control-sm allowaplhabets" name="father_profession" id="father_profession" placeholder="Profession" formControlName="father_profession" [ngClass]="{'is-invalid': isAdd && this.studentForm.controls.father_profession.errors}">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--end::Card-->
+
+    <!--submit button-->
+    <div class="text-right mt-3">
+      <button class="btn btn-sm btn-primary">Save Changes</button>
+    </div>
+
+  </form>
+
+</div>

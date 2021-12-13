@@ -10,6 +10,7 @@ import {UserRoleComponent} from './user-role/user-role.component';
 import {DesignationComponent} from './designation/designation.component';
 import {DepartmentComponent} from './department/department.component';
 import {SalaryModelComponent} from './salary-model/salary-model.component';
+import {ReligionComponent} from './religion/religion.component';
 
 const routes: Routes = [
   { path: 'bank', component: BankComponent },
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'designation', component: DesignationComponent },
   { path: 'department', component: DepartmentComponent },
   { path: 'salary-model', component: SalaryModelComponent },
+  { path: 'religion', component: ReligionComponent },
   // { path: 'leave-type', component: LeaveTypesComponent },
   // { path: 'leave-policy', component: LeavePolicyComponent },
 ];

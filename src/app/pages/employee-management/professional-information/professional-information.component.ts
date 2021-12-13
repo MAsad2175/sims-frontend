@@ -27,7 +27,7 @@ export class ProfessionalInformationComponent implements OnInit {
               private route: ActivatedRoute,
               private fb: FormBuilder) {
     this.route.queryParams.subscribe(params => {
-      this.employeeId = Number(params.id);
+      this.employeeId = params.id;
       if (this.employeeId) {
         this.getProfessionalDate();
         this.getProfessionalExperienceList();
@@ -102,7 +102,7 @@ export class ProfessionalInformationComponent implements OnInit {
     this.ngxLoader.start();
     this.employeeService.getSingleProfessionalExperienceDetail(id).subscribe(data => {
       this.professionalExperiencedata = data;
-      this.professionalExperiencedataid = data.id;
+      this.professionalExperiencedataid = data._id;
       this.ProfessionalForm.patchValue({
         job_title: this.professionalExperiencedata.job_title,
         date_from: this.professionalExperiencedata.date_from,

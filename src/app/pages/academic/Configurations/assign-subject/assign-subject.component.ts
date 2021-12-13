@@ -23,28 +23,23 @@ export class AssignSubjectComponent implements OnInit {
   sectionId: any;
   class: any;
   sectionOfSpecificClass: any;
-  subjectsOfSpecificClassSection: any;
   subjectsOfSpecificSection: any;
-  sectionsListForClassModal: any;
-  classSubjectRelationId: any;
+  relationalSubjectId: any;
 
   constructor( private ngxLoader: NgxUiLoaderService,
                private academicService: AcademicService,
                private fb: FormBuilder) { }
   classListing(): any {
-    this.academicService.classListing('', '', '', true).subscribe(
+    this.academicService.classListingWithoutPagination().subscribe(
     data => {
       this.classList = data;
-      setTimeout( () => {
-        this.getSectionOfSpecificClass(this.classList[0].id);
-      }, 1000);
     },
     err => {
       toastr.error(err.error.error);
     });
   }
   sectionListing(): any {
-    this.academicService.sectionListing('', '', '', true).subscribe(
+    this.academicService.sectionListingWithoutPagination().subscribe(
     data => {
       this.sectionList = data;
     },
@@ -53,7 +48,7 @@ export class AssignSubjectComponent implements OnInit {
     });
   }
   subjectListing(): any {
-    this.academicService.subjectListing('', '', '', true).subscribe(
+    this.academicService.subjectListingWithoutPagination().subscribe(
     data => {
       this.subjectList = data;
     },
@@ -68,11 +63,16 @@ export class AssignSubjectComponent implements OnInit {
   }
   onSectionSubmit(): any {
     this.isSectionAdd = true;
+    if (!this.classId) {
+      toastr.error('Please Select Class');
+      return;
+    }
+    this.sectionForm.get('classes').setValue(this.classId);
     if ( this.sectionForm.invalid ) {
       return;
     }
     for ( var i = 0; i < this.sectionOfSpecificClass.length; i++ ) {
-      if ( this.sectionOfSpecificClass[i].section.id === Number(this.sectionForm.value.section) ) {
+      if ( this.sectionOfSpecificClass[i].section._id === this.sectionForm.value.section ) {
         toastr.error('Section Already Exists');
         return;
       }
@@ -80,35 +80,35 @@ export class AssignSubjectComponent implements OnInit {
     this.academicService.addSectionToAssignSubjects( this.sectionForm.value ).subscribe(
     data => {
       this.isSectionAdd = false;
-      this.getSectionOfSpecificClass(data.classes);
+      this.sectionOfSpecificClass = data;
+      $('#sectionModal').modal('hide');
     },
     err => {
       toastr.error(err.error.error);
     });
-    $('#sectionModal').modal('hide');
   }
   getSectionOfSpecificClass(id): any {
     this.classId = id;
-    this.ngxLoader.start();
     this.academicService.getSectionsOfSpecificClass( id ).subscribe(
     data => {
       this.sectionOfSpecificClass = data;
-      this.ngxLoader.stop();
     },
     err => {
-      this.ngxLoader.stop();
       toastr.error(err.error.error);
     });
   }
-  getSubjectOfSpecificClass(): any {
-    this.academicService.getSujectsOfSpecificSection( this.classSubjectRelationId ).subscribe(data => {
+  getSubjectOfSpecificClass(id, sectionId): any {
+    this.sectionId = sectionId;
+    this.relationalSubjectId = id;
+    this.subjectForm.get('class_section').setValue(id);
+    this.academicService.getSujectsOfSpecificSection( id ).subscribe(data => {
       this.subjectsOfSpecificSection = data;
     },
     err => {
       toastr.error(err.error.error);
     });
   }
-  deleteSpecificIndexOfSection( classId, sectionId): any {
+  deleteSpecificIndexOfSection(classId, sectionId): any {
     this.academicService.deleteSectionsOfSpecificClass( classId, sectionId ).subscribe(
     data => {
       this.sectionOfSpecificClass = data;
@@ -117,30 +117,41 @@ export class AssignSubjectComponent implements OnInit {
       toastr.error(err.error.error);
     });
   }
-  openSubjectModal(): any {
-    $('#subjectModal').modal('show');
-  }
-  onSubjectSubmit(): any {
-    this.isSubjectAdd = true;
-    if ( this.subjectForm.invalid ) {
-      return;
-    }
-    this.academicService.addsubjectsToAssignSubjects( this.subjectForm.value ).subscribe(
+  deleteSpecificIndexOfSubject(id, classSection): any {
+    this.academicService.deleteSubjectOfSpecificSection( id, classSection ).subscribe(
     data => {
-      this.subjectsOfSpecificClassSection = data;
-      this.isSubjectAdd = false;
-      this.getSubjectOfSpecificClass();
+      this.subjectsOfSpecificSection = data;
     },
     err => {
       toastr.error(err.error.error);
     });
   }
-  getSectionsForClassModal(id): any {
-    console.log('id', id);
-    this.academicService.getSectionsOfSpecificClass( id ).subscribe(
+  openSubjectModal(): any {
+    this.subjectForm.patchValue({
+      class_section: '',
+      subject: '',
+      total_marks: '',
+      passing_marks: '',
+    });
+    $('#subjectModal').modal('show');
+  }
+  onSubjectSubmit(): any {
+    this.isSubjectAdd = true;
+    if ( !this.relationalSubjectId ) {
+      toastr.error('Please Select Section');
+      return;
+    }
+    this.subjectForm.get('class_section').setValue(this.relationalSubjectId);
+    if ( this.subjectForm.invalid ) {
+      return;
+    }
+    this.ngxLoader.start();
+    this.academicService.addsubjectsToAssignSubjects( this.subjectForm.value ).subscribe(
     data => {
-      this.sectionsListForClassModal = data;
+      this.subjectsOfSpecificSection = data;
+      this.isSubjectAdd = false;
       this.ngxLoader.stop();
+      $('#subjectModal').modal('hide');
     },
     err => {
       this.ngxLoader.stop();
@@ -148,16 +159,11 @@ export class AssignSubjectComponent implements OnInit {
     });
   }
   getSubjectMarksForClassModal( id ): any {
-    const data = this.subjectList.filter( t => t.id === Number(id) );
+    const data = this.subjectList.find( t => t._id === id );
     this.subjectForm.patchValue({
-      total_marks: data[0].total_marks,
-      passing_marks: data[0].passing_marks,
+      total_marks: data.total_marks,
+      passing_marks: data.passing_marks,
     });
-  }
-  getSectionDetailClassModal( id ): any {
-    const data = this.sectionsListForClassModal.filter( t => t.section.id === Number(id) );
-    this.classSubjectRelationId = data[0].id;
-    this.subjectForm.get('class_section').setValue(data[0].id);
   }
   ngOnInit() {
     this.sectionForm = this.fb.group({
@@ -166,8 +172,6 @@ export class AssignSubjectComponent implements OnInit {
     });
     this.subjectForm = this.fb.group({
       class_section: ['', Validators.required],
-      classes: ['', Validators.required],
-      section: ['', Validators.required],
       subject: ['', Validators.required],
       total_marks: ['', Validators.required],
       passing_marks: ['', Validators.required],

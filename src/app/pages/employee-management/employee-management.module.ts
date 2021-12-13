@@ -23,7 +23,7 @@ import { ProfessionalInformationComponent } from './professional-information/pro
     ],
     providers: [
         EmployeeManagementServiceService,
-        ConfigurationServiceService
+        ConfigurationServiceService,
     ]
 })
 export class EmployeeManagementModule { }

@@ -39,7 +39,7 @@ export class EmployeesListingComponent implements OnInit {
   loadPage(event): any {
     this.searchFilter();
   }
-  searchFilterValue(): any{
+  searchFilterValue(): any {
     this.page = 1;
     this.searchFilter();
   }
@@ -50,6 +50,9 @@ export class EmployeesListingComponent implements OnInit {
       this.list = data;
       this.totalPages = this.list.total_count;
       this.list = this.list.items;
+      if (!this.list.length) {
+        toastr.error('Record Not Found!');
+      }
       this.ngxLoader.stop();
     },
     err => {
@@ -68,11 +71,10 @@ export class EmployeesListingComponent implements OnInit {
     }
     this.searchFilter();
   }
-  getDesignationListing(): any {
-    this.configurationService.designationListing('', '', '', true).subscribe(
+  getDesignationListingWithoutPagination(): any {
+    this.configurationService.getDesignationListingWithoutPagination().subscribe(
     data => {
       this.designationList = data;
-      this.designationList = this.designationList.filter( t => t.status === true);
       setTimeout( () => {
         console.log('initialized');
         $('#designation').selectpicker();
@@ -88,7 +90,7 @@ export class EmployeesListingComponent implements OnInit {
   ngOnInit(): void {
     this.imagePath = environment.url;
     this.perPageValue = 25;
-    this.getDesignationListing();
+    this.getDesignationListingWithoutPagination();
     this.searchFilter();
   }
 }

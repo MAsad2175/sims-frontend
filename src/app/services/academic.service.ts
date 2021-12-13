@@ -123,6 +123,33 @@ export class AcademicService {
         }).pipe(map(data => data));
     return results;
   }
+  subjectListingWithoutPagination(): Observable<any> {
+    let results = this.http.get(`${environment.url}/config/subject_list_without_pagination?auth_token=` + localStorage.getItem('auth_token')
+        , {
+          headers: new HttpHeaders({
+            'Accept': 'application/json'
+          })
+        }).pipe(map(data => data));
+    return results;
+  }
+  sectionListingWithoutPagination(): Observable<any> {
+    let results = this.http.get(`${environment.url}/config/section_list_without_pagination?auth_token=` + localStorage.getItem('auth_token')
+        , {
+          headers: new HttpHeaders({
+            'Accept': 'application/json'
+          })
+        }).pipe(map(data => data));
+    return results;
+  }
+  classListingWithoutPagination(): Observable<any> {
+    let results = this.http.get(`${environment.url}/config/class_list_without_pagination?auth_token=` + localStorage.getItem('auth_token')
+        , {
+          headers: new HttpHeaders({
+            'Accept': 'application/json'
+          })
+        }).pipe(map(data => data));
+    return results;
+  }
   addSectionToAssignSubjects(value): Observable<any> {
     const results = this.http.post(`${environment.url}/config/class_section_list?auth_token=` + localStorage.getItem('auth_token'), {
       value
@@ -142,8 +169,17 @@ export class AcademicService {
     }).pipe(map(data => data));
     return results;
   }
-  deleteSectionsOfSpecificClass( classId, sectionId ): Observable<any> {
-    let results = this.http.delete(`${environment.url}/config/class_section_list?auth_token=` + localStorage.getItem('auth_token') + '&class_id=' + classId + '&section_id=' + sectionId
+  deleteSectionsOfSpecificClass( class_id, id ): Observable<any> {
+    let results = this.http.delete(`${environment.url}/config/class_section_list?auth_token=` + localStorage.getItem('auth_token') + '&id=' + id + '&class_id=' + class_id
+    , {
+      headers: new HttpHeaders({
+        'Accept': 'application/json'
+      })
+    }).pipe(map(data => data));
+    return results;
+  }
+  deleteSubjectOfSpecificSection( id, class_section ): Observable<any> {
+    let results = this.http.delete(`${environment.url}/config/section_subject_list?auth_token=` + localStorage.getItem('auth_token') + '&id=' + id + '&class_section=' + class_section
     , {
       headers: new HttpHeaders({
         'Accept': 'application/json'

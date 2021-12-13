@@ -45,7 +45,7 @@ export class DesignationComponent implements OnInit {
   }
   searchFilter(): any{
     this.ngxLoader.start();
-    this.configurationService.designationListing(this.page, this.perPage, this.employeeName, '').subscribe(
+    this.configurationService.designationListing(this.page, this.perPage).subscribe(
         data => {
           this.list = data;
           this.totalPages = this.list.total_count;

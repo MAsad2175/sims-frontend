@@ -12,7 +12,7 @@ export class LayoutComponent implements OnInit {
   showProfessional = false;
   constructor( private route: ActivatedRoute) {
     this.route.queryParams.subscribe(params => {
-      this.employeeId = Number(params.id);
+      this.employeeId = params.id;
     });
   }
 

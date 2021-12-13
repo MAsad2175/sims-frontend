@@ -191,3 +191,6 @@ span.count_count_icon {
 body::-webkit-scrollbar-thumb:hover {
   background: #3bafdabd;
 }
+.is-invalid .dropdown.bootstrap-select {
+  border: 1px solid #dc3545;
+}

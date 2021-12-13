@@ -8,8 +8,8 @@
 
 <div class="row">
 
-  <div class="col-12 col-sm-6 col-lg-4">
-    <div class="card">
+  <div class="col-12 col-sm-6 col-lg-4 mb-3">
+    <div class="card mb-0">
       <div class="card-header d-flex align-items-center justify-content-between">
         <h5 class="m-0">Class</h5>
         <button class="btn btn-light waves-effect waves-light" style="padding: 4px 8px; visibility: hidden" type="button" (click)="openSectionModal()">
@@ -18,7 +18,7 @@
       </div>
       <div class="card-body h-300">
         <div class="all-row">
-          <div class="mb-3" *ngFor="let class of classList; let i = index" class="all-sec d-flex align-items-center justify-content-between" [ngClass]="{ 'activeStatus': classId === class.id }" (click)="getSectionOfSpecificClass(class?.id)">
+          <div *ngFor="let class of classList; let i = index" class="all-sec d-flex align-items-center justify-content-between mb-2" [ngClass]="{ 'activeStatus': classId === class._id }" (click)="getSectionOfSpecificClass(class?._id)">
             <h6>{{class?.name}}</h6>
           </div>
         </div>
@@ -26,8 +26,8 @@
     </div>
   </div>
 
-  <div class="col-12 col-sm-6 col-lg-4">
-    <div class="card">
+  <div class="col-12 col-sm-6 col-lg-4 mb-3">
+    <div class="card mb-0">
       <div class="card-header d-flex align-items-center justify-content-between">
         <h5 class="m-0">Section</h5>
         <button class="btn btn-light waves-effect waves-light" style="padding: 4px 8px;" type="button" (click)="openSectionModal()">
@@ -35,14 +35,14 @@
         </button>
       </div>
       <div class="card-body h-300">
-        <div class="mb-3" *ngFor="let section of sectionOfSpecificClass; let j = index" [ngClass]=" { 'activeStatus': sectionId === section?.section?.id }" (click)="getSubjectOfSpecificClass()" class="all-sec d-flex align-items-center justify-content-between">
+        <div *ngFor="let section of sectionOfSpecificClass; let j = index" [ngClass]=" { 'activeStatus': sectionId === section?.section?._id }" (click)="getSubjectOfSpecificClass(section?._id, section?.section?._id)" class="all-sec d-flex align-items-center justify-content-between mb-3">
           <h6>{{section?.section?.name}}</h6>
           <div class="dropdown">
             <button type="button" class="btn btn-light waves-effect waves-light dropdown-toggle" style="padding: 4px 8px;" data-toggle="dropdown">
               <i class="fas fa-pen"></i>
             </button>
             <div class="dropdown-menu">
-              <a class="dropdown-item" (click)="deleteSpecificIndexOfSection(section?.classes, section?.section?.id)">Delete</a>
+              <a class="dropdown-item" (click)="deleteSpecificIndexOfSection(section.class, section?._id)">Delete</a>
             </div>
           </div>
         </div>
@@ -50,8 +50,8 @@
     </div>
   </div>
 
-  <div class="col-12 col-sm-6 col-lg-4">
-    <div class="card">
+  <div class="col-12 col-sm-6 col-lg-4 mb-3">
+    <div class="card mb-0">
       <div class="card-header d-flex align-items-center justify-content-between">
         <h5 class="m-0">Subject</h5>
         <button class="btn btn-light waves-effect waves-light" style="padding: 4px 8px;" type="button" (click)="openSubjectModal()">
@@ -59,15 +59,15 @@
         </button>
       </div>
       <div class="card-body h-300">
-        <div class="all-sec activeStatus d-flex align-items-center justify-content-between">
-          <h6>English</h6>
+        <div class="all-sec d-flex align-items-center justify-content-between" *ngFor="let sub of subjectsOfSpecificSection; let i = index">
+          <h6>{{sub?.subject?.name}}</h6>
           <div class="dropdown">
             <button type="button" class="btn btn-light waves-effect waves-light dropdown-toggle" style="padding: 4px 8px;" data-toggle="dropdown">
               <i class="fas fa-pen"></i>
             </button>
             <div class="dropdown-menu">
               <a class="dropdown-item" >Edit</a>
-              <a class="dropdown-item" >Delete</a>
+              <a class="dropdown-item" (click)="deleteSpecificIndexOfSubject(sub?._id, sub?.class_section)" >Delete</a>
             </div>
           </div>
         </div>
@@ -90,23 +90,13 @@
         </div>
         <div class="modal-body">
           <div class="row">
-            <!--Add Class-->
-            <div class="col-12 col-sm-6">
-              <div class="form-group">
-                <label>Add Class <span class="text-danger">*</span></label>
-                <select class="form-control form-control-sm" formControlName="classes" [ngClass]="{ 'is-invalid': isSectionAdd && this.sectionForm.controls.classes.errors }" >
-                  <option [value]="''">Select Class</option>
-                  <option *ngFor="let c of classList" [value]="c.id">{{c.name}}</option>
-                </select>
-              </div>
-            </div>
             <!--Add Section-->
             <div class="col-12 col-sm-6">
               <div class="form-group">
                 <label>Add Section <span class="text-danger">*</span></label>
                 <select class="form-control form-control-sm" formControlName="section" [ngClass]="{ 'is-invalid': isSectionAdd && this.sectionForm.controls.section.errors }" >
-                  <option [value]="''">Select Class</option>
-                  <option *ngFor="let c of sectionList" [value]="c.id">{{c.name}}</option>
+                  <option [value]="''">Select Section</option>
+                  <option *ngFor="let c of sectionList" [value]="c._id">{{c.name}}</option>
                 </select>
               </div>
             </div>
@@ -135,32 +125,32 @@
         <div class="modal-body">
           <div class="row">
             <!--Add Class-->
-            <div class="col-12 col-sm-6">
-              <div class="form-group">
-                <label>Add Class <span class="text-danger">*</span></label>
-                <select class="form-control form-control-sm" formControlName="classes" [ngClass]="{ 'is-invalid': isSubjectAdd && this.subjectForm.controls.classes.errors }" (change)="getSectionsForClassModal( $event.target.value )" >
-                  <option [value]="''">Select Class</option>
-                  <option *ngFor="let c of classList" [value]="c.id">{{c.name}}</option>
-                </select>
-              </div>
-            </div>
-            <!--Add Section-->
-            <div class="col-12 col-sm-6">
-              <div class="form-group">
-                <label>Add Section <span class="text-danger">*</span></label>
-                <select class="form-control form-control-sm" formControlName="section" [ngClass]="{ 'is-invalid': isSubjectAdd && this.subjectForm.controls.section.errors }" (change)="getSectionDetailClassModal( $event.target.value )" >
-                  <option [value]="''">Select Section</option>
-                  <option *ngFor="let c of sectionsListForClassModal" [value]="c.section.id">{{c.section.name}}</option>
-                </select>
-              </div>
-            </div>
+<!--            <div class="col-12 col-sm-6">-->
+<!--              <div class="form-group">-->
+<!--                <label>Add Class <span class="text-danger">*</span></label>-->
+<!--                <select class="form-control form-control-sm" formControlName="classes" [ngClass]="{ 'is-invalid': isSubjectAdd && this.subjectForm.controls.classes.errors }" (change)="getSectionsForClassModal( $event.target.value )" >-->
+<!--                  <option [value]="''">Select Class</option>-->
+<!--                  <option *ngFor="let c of classList" [value]="c._id">{{c.name}}</option>-->
+<!--                </select>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            &lt;!&ndash;Add Section&ndash;&gt;-->
+<!--            <div class="col-12 col-sm-6">-->
+<!--              <div class="form-group">-->
+<!--                <label>Add Section <span class="text-danger">*</span></label>-->
+<!--                <select class="form-control form-control-sm" formControlName="section" [ngClass]="{ 'is-invalid': isSubjectAdd && this.subjectForm.controls.section.errors }" >-->
+<!--                  <option [value]="''">Select Section</option>-->
+<!--                  <option *ngFor="let c of sectionsListForClassModal" [value]="c.section._id">{{c.section.name}}</option>-->
+<!--                </select>-->
+<!--              </div>-->
+<!--            </div>-->
             <!--Add Subject-->
             <div class="col-12 col-sm-6">
               <div class="form-group">
                 <label>Add Subject <span class="text-danger">*</span></label>
                 <select class="form-control form-control-sm" formControlName="subject" [ngClass]="{ 'is-invalid': isSubjectAdd && this.subjectForm.controls.subject.errors }" (change)="getSubjectMarksForClassModal( $event.target.value )" >
                   <option [value]="''">Select Subject</option>
-                  <option *ngFor="let c of subjectList" [value]="c.id">{{c.name}}</option>
+                  <option *ngFor="let c of subjectList" [value]="c._id">{{c.name}}</option>
                 </select>
               </div>
             </div>

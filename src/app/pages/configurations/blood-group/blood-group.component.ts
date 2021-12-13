@@ -45,7 +45,7 @@ export class BloodGroupComponent implements OnInit {
   }
   searchFilter(): any{
     this.ngxLoader.start();
-    this.configurationService.bloodGroupListing(this.page, this.perPage, this.employeeName, '').subscribe(
+    this.configurationService.bloodGroupListing(this.page, this.perPage).subscribe(
         data => {
           this.list = data;
           this.totalPages = this.list.total_count;

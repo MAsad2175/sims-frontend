@@ -43,60 +43,18 @@ export class BasicInformationComponent implements OnInit {
               private ref: ChangeDetectorRef,
               private fb: FormBuilder) {
     this.route.queryParams.subscribe(params => {
-      this.employeeId = Number(params.id);
-      this.getSaluationList();
-      this.getGenderList();
-      this.getbloodGroupList();
-      this.getBankList();
-      this.getDesignationListing();
-      this.getDepartmentListing();
-      this.getSalaryModelListing();
-      this.getCountries();
+      this.employeeId = params.id;
+      this.getSalutationListingWithoutPagination();
+      this.getGenderListWithoutPagination();
+      this.getBloodGroupListWithoutPagination();
+      this.getBankListWithoutPagination();
+      this.getDesignationListingWithoutPagination();
+      this.getDepartmentListingWithoutPagination();
+      this.getSalaryModelListingWithoutPagination();
       if (this.employeeId) {
         this.getBasicInformationById();
       }
     });
-  }
-  getCountries(): any {
-    this.locationService.countries().subscribe( data => {
-      this.countries = data.countries;
-
-      if (this.employeeId) {
-        this.updateStates(this.editCountryID);
-        this.ref.markForCheck();
-      } else {
-        this.updateStates(9);
-        this.addBasicInfomarion.get('country').patchValue(9);
-      }
-
-    });
-  }
-
-  updateStates(value): any {
-    for (let i = 0; i < this.countries.length; i++) {
-      if (this.countries[i].id === Number(value)) {
-        this.states = this.countries[i].states;
-      }
-    }
-    if (this.employeeId) {
-      this.updateCities(this.editstateID);
-    } else {
-      this.updateCities(38);
-      this.addBasicInfomarion.get('state').patchValue(38);
-    }
-    this.ref.markForCheck();
-
-  }
-  updateCities(valueCity): any {
-    for (let i = 0; i < this.states.length; i++) {
-      if (this.states[i].id === Number(valueCity)) {
-        this.cities = this.states[i].cities;
-      }
-    }
-
-    if (!this.employeeId) {
-      this.addBasicInfomarion.get('city').patchValue(39);
-    }
   }
   _onlyNumeric(event: any): any {
     const pattern = /[0-9]/;
@@ -126,7 +84,6 @@ export class BasicInformationComponent implements OnInit {
   }
   uploadProfileImage($event): any {
     const file = ($event.target as HTMLInputElement).files[0];
-    console.log('file', file);
     this.convertToBase64(file);
   }
   convertToBase64(file: File): any {
@@ -134,9 +91,8 @@ export class BasicInformationComponent implements OnInit {
       this.readFile(file, subscriber);
     });
     observable.subscribe( (d) => {
-      console.log('d',d);
       this.baseUrl = d;
-      this.addBasicInfomarion.get('image').setValue(d);
+      this.addBasicInfomarion.get('profile_image').setValue(d);
     });
   }
   readFile(file: File, subscriber: Subscriber<any>): any {
@@ -145,7 +101,6 @@ export class BasicInformationComponent implements OnInit {
 
     filereader.onload = (e) => {
       subscriber.next(filereader.result);
-      // console.log(this.baseUrl);
       const img = $('#upload_image').attr('src', this.baseUrl);
       $('#upload_image').html(img);
       subscriber.complete();
@@ -156,81 +111,70 @@ export class BasicInformationComponent implements OnInit {
       subscriber.complete();
     };
   }
-
-  getSaluationList(): any {
-    this.configurationService.salutationListing('', '', '', true).subscribe(
+  getSalutationListingWithoutPagination(): any {
+    this.configurationService.salutationListingWithoutPagination().subscribe(
     data => {
       this.salutationList = data;
-      this.salutationList = this.salutationList.filter( t => t.status === true);
     },
     err => {
       toastr.error(err.error.error);
     });
   }
-  getGenderList(): any {
-    this.configurationService.genderListing('', '', '', true).subscribe(
+  getGenderListWithoutPagination(): any {
+    this.configurationService.getGenderListWithoutPagination().subscribe(
     data => {
       this.genderList = data;
-      this.genderList = this.genderList.filter( t => t.status === true);
     },
     err => {
       toastr.error(err.error.error);
     });
   }
-  getBankList(): any {
-    this.configurationService.bankListing('', '', '', true).subscribe(
+  getBankListWithoutPagination(): any {
+    this.configurationService.getBankListWithoutPagination().subscribe(
     data => {
       this.bankList = data;
-      this.bankList = this.bankList.filter( t => t.status === true);
     },
     err => {
       toastr.error(err.error.error);
     });
   }
-  getDesignationListing(): any {
-    this.configurationService.designationListing('', '', '', true).subscribe(
+  getDesignationListingWithoutPagination(): any {
+    this.configurationService.getDesignationListingWithoutPagination().subscribe(
     data => {
       this.designationList = data;
-      this.designationList = this.designationList.filter( t => t.status === true);
     },
     err => {
       this.ngxLoader.stop();
       toastr.error(err.error.error);
     });
   }
-  getDepartmentListing(): any {
-    this.configurationService.departmentListing('', '', '', true).subscribe(
+  getDepartmentListingWithoutPagination(): any {
+    this.configurationService.getDepartmentListingWithoutPagination().subscribe(
     data => {
       this.departmentList = data;
-      this.departmentList = this.departmentList.filter( t => t.status === true);
     },
     err => {
       toastr.error(err.error.error);
     });
   }
-  getSalaryModelListing(): any {
-    this.configurationService.salaryModelListing('', '', '', true).subscribe(
+  getSalaryModelListingWithoutPagination(): any {
+    this.configurationService.getSalaryModelListingWithoutPagination().subscribe(
     data => {
       this.salryModelList = data;
-      this.salryModelList = this.salryModelList.filter( t => t.status === true);
-      this.ngxLoader.stop();
     },
     err => {
-      this.ngxLoader.stop();
       toastr.error(err.error.error);
     });
   }
-  getbloodGroupList(): any {
-    this.configurationService.bloodGroupListing('', '', '', true).subscribe(
+  getBloodGroupListWithoutPagination(): any {
+    this.configurationService.getBloodGroupListWithoutPagination().subscribe(
     data => {
       this.bloodGroupList = data;
-      this.bloodGroupList = this.bloodGroupList.filter( t => t.status === true);
     },
     err => {
       toastr.error(err.error.error);
     });
   }
-
   submitBasicInfomarion(): any {
     this.isBasicInfoSubmit = true;
     const hiredOn = $('#hired_on').val();
@@ -260,13 +204,10 @@ export class BasicInformationComponent implements OnInit {
         this.ngxLoader.stop();
         toastr.error(err.error.error);
       });
-    }
-    else {
+    } else {
       this.ngxLoader.start();
       this.employeeService.submitTeacherBasicInformation(this.addBasicInfomarion.value).subscribe(data => {
-        console.log('data', data.data.id);
-        this.employeeId = data.data.id;
-        console.log('employeeId', this.employeeId);
+        this.employeeId = data._id;
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
           this.router.navigate(['/employee/add'], { queryParams: {id: this.employeeId}}); // navigate to same route
         });
@@ -289,10 +230,8 @@ export class BasicInformationComponent implements OnInit {
       if (data.image) {
         $('#upload_image').attr('src', this.userImage + '/sims' + data.image);
       }
-      // this.editCountryID = data.country.id || '';
-      // this.editstateID = data.state.id || '';
       this.addBasicInfomarion.patchValue({
-        image: data.image,
+        profile_image: data.profile_image,
         salutation: data.salutation,
         first_name: data.first_name,
         middle_name: data.middle_name,
@@ -313,9 +252,9 @@ export class BasicInformationComponent implements OnInit {
         bank_acc_no: data.bank_acc_no,
         status: data.status,
         address: data.address,
-        // country: data.country.id || '',
-        // state: data.state.id || '',
-        // city: data.city.id || '',
+        country: data.country,
+        state: data.state,
+        city: data.city,
       });
       $('#hired_on').datepicker('setDate', data.hired_on);
       $('#dob').datepicker('setDate', data.dob);
@@ -333,7 +272,7 @@ export class BasicInformationComponent implements OnInit {
     this.getDate();
     this.userImage = environment.url;
     this.addBasicInfomarion = this.fb.group({
-      image: [''],
+      profile_image: [''],
       salutation: ['', Validators.required],
       first_name: ['', Validators.required],
       middle_name: [''],

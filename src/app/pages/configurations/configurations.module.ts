@@ -15,9 +15,10 @@ import { DesignationComponent } from './designation/designation.component';
 import { DepartmentComponent } from './department/department.component';
 import {ConfigurationServiceService} from '../../services/configuration-service.service';
 import { SalaryModelComponent } from './salary-model/salary-model.component';
+import { ReligionComponent } from './religion/religion.component';
 
 @NgModule({
-    declarations: [BankComponent, SalutationComponent, GenderComponent, BloodGroupComponent, LeaveTypesComponent, LeavePolicyComponent, UserRoleComponent, DesignationComponent, DepartmentComponent, SalaryModelComponent],
+    declarations: [BankComponent, SalutationComponent, GenderComponent, BloodGroupComponent, LeaveTypesComponent, LeavePolicyComponent, UserRoleComponent, DesignationComponent, DepartmentComponent, SalaryModelComponent, ReligionComponent],
     imports: [
         CommonModule,
         ConfigurationsRoutingModule,

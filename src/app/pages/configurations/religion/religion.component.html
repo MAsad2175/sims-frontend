@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-12">
     <div class="page-title-box d-flex justify-content-between align-items-center">
-      <h4 class="page-title">Department Details</h4>
+      <h4 class="page-title">Gender Details</h4>
       <button type="button" class="btn btn-primary waves-effect waves-light" (click)="openModal()">Add New</button>
     </div>
   </div>
@@ -70,13 +70,13 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="bankModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="religionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <form [formGroup]="departmentForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="religionForm" (ngSubmit)="onSubmit()">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title" *ngIf="!editId">Add New Department</h4>
-          <h4 class="modal-title" *ngIf="editId">Update Department Details</h4>
+          <h4 class="modal-title" *ngIf="!editId">Add New Religion</h4>
+          <h4 class="modal-title" *ngIf="editId">Update Religion Details</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -87,14 +87,14 @@
             <div class="col-12 col-sm-6">
               <div class="form-group">
                 <label>Code <span class="text-danger">*</span></label>
-                <input type="text" class="form-control form-control-sm name" placeholder="Code" formControlName="code" [ngClass]="{'is-invalid': isAdd && this.departmentForm.controls.code.errors}" >
+                <input type="text" class="form-control form-control-sm name" placeholder="Code" formControlName="code" [ngClass]="{'is-invalid': isAdd && this.religionForm.controls.code.errors}" >
               </div>
             </div>
             <!--Name-->
             <div class="col-12 col-sm-6">
               <div class="form-group">
                 <label>Name <span class="text-danger">*</span></label>
-                <input type="text" class="form-control form-control-sm name" placeholder="Name" formControlName="name" [ngClass]="{'is-invalid': isAdd && this.departmentForm.controls.name.errors}" >
+                <input type="text" class="form-control form-control-sm name" placeholder="Name" formControlName="name" [ngClass]="{'is-invalid': isAdd && this.religionForm.controls.name.errors}" >
               </div>
             </div>
             <!--Description-->
@@ -104,21 +104,11 @@
                 <textarea type="text" style="min-height: 70px" class="form-control form-control-sm name" placeholder="Description" formControlName="description" > </textarea>
               </div>
             </div>
-            <!--Is Teacher-->
-            <div class="col-12 col-sm-6">
-              <div class="form-group">
-                <label>Is Teacher <span class="text-danger">*</span></label>
-                <select class="form-control form-control-sm" formControlName="is_teacher" [ngClass]="{ 'is-invalid': isAdd && this.departmentForm.controls.is_teacher.errors }" >
-                  <option [ngValue]=true>Yes</option>
-                  <option [ngValue]=false >No</option>
-                </select>
-              </div>
-            </div>
             <!--Status-->
             <div class="col-12 col-sm-6">
               <div class="form-group">
                 <label>Status <span class="text-danger">*</span></label>
-                <select class="form-control form-control-sm" formControlName="status" [ngClass]="{ 'is-invalid': isAdd && this.departmentForm.controls.status.errors }" >
+                <select class="form-control form-control-sm" formControlName="status" [ngClass]="{ 'is-invalid': isAdd && this.religionForm.controls.status.errors }" >
                   <option [ngValue]=true>Active</option>
                   <option [ngValue]=false >Inactive</option>
                 </select>

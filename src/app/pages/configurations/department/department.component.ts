@@ -45,7 +45,7 @@ export class DepartmentComponent implements OnInit {
   }
   searchFilter(): any{
     this.ngxLoader.start();
-    this.configurationService.departmentListing(this.page, this.perPage, this.employeeName, '').subscribe(
+    this.configurationService.departmentListing(this.page, this.perPage).subscribe(
         data => {
           this.list = data;
           this.totalPages = this.list.total_count;

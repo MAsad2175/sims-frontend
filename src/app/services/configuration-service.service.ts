@@ -38,8 +38,17 @@ export class ConfigurationServiceService {
         }).pipe(map(data => data));
     return results;
   }
-  salutationListing(current_page, per_page, search_string, status): Observable<any> {
-    let results = this.http.get(`${environment.url}/config/salutation_list?auth_token=` + localStorage.getItem('auth_token') + '&page=' + current_page + '&per_page=' + per_page + '&search_string=' + search_string + '&status=' + status
+  salutationListing(current_page, per_page): Observable<any> {
+    let results = this.http.get(`${environment.url}/config/salutation_list?auth_token=` + localStorage.getItem('auth_token') + '&page=' + current_page + '&per_page=' + per_page
+        , {
+          headers: new HttpHeaders({
+            'Accept': 'application/json'
+          })
+        }).pipe(map(data => data));
+    return results;
+  }
+  salutationListingWithoutPagination(): Observable<any> {
+    let results = this.http.get(`${environment.url}/config/salutation_list_without_pagination?auth_token=` + localStorage.getItem('auth_token')
         , {
           headers: new HttpHeaders({
             'Accept': 'application/json'
@@ -85,6 +94,15 @@ export class ConfigurationServiceService {
         }).pipe(map(data => data));
     return results;
   }
+  getBankListWithoutPagination(): Observable<any> {
+    let results = this.http.get(`${environment.url}/config/bank_list_without_pagination?auth_token=` + localStorage.getItem('auth_token')
+        , {
+          headers: new HttpHeaders({
+            'Accept': 'application/json'
+          })
+        }).pipe(map(data => data));
+    return results;
+  }
   submitAddBloodGroupForm(value): Observable<any> {
     const results = this.http.post(`${environment.url}/config/blood_group_list?auth_token=` + localStorage.getItem('auth_token'), {
       value
@@ -114,8 +132,17 @@ export class ConfigurationServiceService {
         }).pipe(map(data => data));
     return results;
   }
-  bloodGroupListing(current_page, per_page, search_string, status): Observable<any> {
-    let results = this.http.get(`${environment.url}/config/blood_group_list?auth_token=` + localStorage.getItem('auth_token') + '&page=' + current_page + '&per_page=' + per_page + '&search_string=' + search_string + '&status=' + status
+  bloodGroupListing(current_page, per_page): Observable<any> {
+    let results = this.http.get(`${environment.url}/config/blood_group_list?auth_token=` + localStorage.getItem('auth_token') + '&page=' + current_page + '&per_page=' + per_page
+        , {
+          headers: new HttpHeaders({
+            'Accept': 'application/json'
+          })
+        }).pipe(map(data => data));
+    return results;
+  }
+  getBloodGroupListWithoutPagination(): Observable<any> {
+    let results = this.http.get(`${environment.url}/config/blood_group_list_without_pagination?auth_token=` + localStorage.getItem('auth_token')
         , {
           headers: new HttpHeaders({
             'Accept': 'application/json'
@@ -152,8 +179,64 @@ export class ConfigurationServiceService {
         }).pipe(map(data => data));
     return results;
   }
-  genderListing(current_page, per_page, search_string, status): Observable<any> {
-    let results = this.http.get(`${environment.url}/config/gender_list?auth_token=` + localStorage.getItem('auth_token') + '&page=' + current_page + '&per_page=' + per_page + '&search_string=' + search_string + '&status=' + status
+  genderListing(current_page, per_page): Observable<any> {
+    let results = this.http.get(`${environment.url}/config/gender_list?auth_token=` + localStorage.getItem('auth_token') + '&page=' + current_page + '&per_page=' + per_page
+        , {
+          headers: new HttpHeaders({
+            'Accept': 'application/json'
+          })
+        }).pipe(map(data => data));
+    return results;
+  }
+  getGenderListWithoutPagination(): Observable<any> {
+    let results = this.http.get(`${environment.url}/config/gender_list_without_pagination?auth_token=` + localStorage.getItem('auth_token')
+        , {
+          headers: new HttpHeaders({
+            'Accept': 'application/json'
+          })
+        }).pipe(map(data => data));
+    return results;
+  }
+  submitReligionForm(value): Observable<any> {
+    const results = this.http.post(`${environment.url}/config/religion_list?auth_token=` + localStorage.getItem('auth_token'), {
+      value
+    }, {
+      headers: new HttpHeaders({
+        Accept: 'application/json'
+      })
+    }).pipe(map(data => data));
+    return results;
+  }
+  updateReligionForm(value, id): Observable<any> {
+    const results = this.http.put(`${environment.url}/config/religion_detail?auth_token=` + localStorage.getItem('auth_token') + '&id=' + id, {
+      value
+    }, {
+      headers: new HttpHeaders({
+        Accept: 'application/json'
+      })
+    }).pipe(map(data => data));
+    return results;
+  }
+  getReligionById(id): Observable<any> {
+    const results = this.http.get(`${environment.url}/config/religion_detail?auth_token=` + localStorage.getItem('auth_token') + '&id=' + id
+        , {
+          headers: new HttpHeaders({
+            Accept: 'application/json'
+          })
+        }).pipe(map(data => data));
+    return results;
+  }
+  religionListing(current_page, per_page): Observable<any> {
+    let results = this.http.get(`${environment.url}/config/religion_list?auth_token=` + localStorage.getItem('auth_token') + '&page=' + current_page + '&per_page=' + per_page
+        , {
+          headers: new HttpHeaders({
+            'Accept': 'application/json'
+          })
+        }).pipe(map(data => data));
+    return results;
+  }
+  getReligionListWithoutPagination(): Observable<any> {
+    let results = this.http.get(`${environment.url}/config/religion_list_without_pagination?auth_token=` + localStorage.getItem('auth_token')
         , {
           headers: new HttpHeaders({
             'Accept': 'application/json'
@@ -286,8 +369,8 @@ export class ConfigurationServiceService {
         }).pipe(map(data => data));
     return results;
   }
-  departmentListing(current_page, per_page, search_string, status): Observable<any> {
-    let results = this.http.get(`${environment.url}/config/department_list?auth_token=` + localStorage.getItem('auth_token') + '&page=' + current_page + '&per_page=' + per_page + '&search_string=' + search_string + '&status=' + status
+  departmentListing(current_page, per_page): Observable<any> {
+    let results = this.http.get(`${environment.url}/config/department_list?auth_token=` + localStorage.getItem('auth_token') + '&page=' + current_page + '&per_page=' + per_page
         , {
           headers: new HttpHeaders({
             'Accept': 'application/json'
@@ -324,8 +407,26 @@ export class ConfigurationServiceService {
         }).pipe(map(data => data));
     return results;
   }
-  designationListing(current_page, per_page, search_string, status): Observable<any> {
-    let results = this.http.get(`${environment.url}/config/designation_list?auth_token=` + localStorage.getItem('auth_token') + '&page=' + current_page + '&per_page=' + per_page + '&search_string=' + search_string + '&status=' + status
+  designationListing(current_page, per_page): Observable<any> {
+    let results = this.http.get(`${environment.url}/config/designation_list?auth_token=` + localStorage.getItem('auth_token') + '&page=' + current_page + '&per_page=' + per_page
+        , {
+          headers: new HttpHeaders({
+            'Accept': 'application/json'
+          })
+        }).pipe(map(data => data));
+    return results;
+  }
+  getDesignationListingWithoutPagination(): Observable<any> {
+    let results = this.http.get(`${environment.url}/config/designation_list_without_pagination?auth_token=` + localStorage.getItem('auth_token')
+        , {
+          headers: new HttpHeaders({
+            'Accept': 'application/json'
+          })
+        }).pipe(map(data => data));
+    return results;
+  }
+  getDepartmentListingWithoutPagination(): Observable<any> {
+    let results = this.http.get(`${environment.url}/config/department_list_without_pagination?auth_token=` + localStorage.getItem('auth_token')
         , {
           headers: new HttpHeaders({
             'Accept': 'application/json'
@@ -362,8 +463,17 @@ export class ConfigurationServiceService {
         }).pipe(map(data => data));
     return results;
   }
-  salaryModelListing(current_page, per_page, search_string, status): Observable<any> {
-    let results = this.http.get(`${environment.url}/config/salary_model_list?auth_token=` + localStorage.getItem('auth_token') + '&page=' + current_page + '&per_page=' + per_page + '&search_string=' + search_string + '&status=' + status
+  salaryModelListing(current_page, per_page): Observable<any> {
+    let results = this.http.get(`${environment.url}/config/salary_model_list?auth_token=` + localStorage.getItem('auth_token') + '&page=' + current_page + '&per_page=' + per_page
+        , {
+          headers: new HttpHeaders({
+            'Accept': 'application/json'
+          })
+        }).pipe(map(data => data));
+    return results;
+  }
+  getSalaryModelListingWithoutPagination(): Observable<any> {
+    let results = this.http.get(`${environment.url}/config/salary_model_list_without_pagination?auth_token=` + localStorage.getItem('auth_token')
         , {
           headers: new HttpHeaders({
             'Accept': 'application/json'

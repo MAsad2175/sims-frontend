@@ -10,7 +10,7 @@ export class EmployeeManagementServiceService {
   constructor(private http: HttpClient) { }
 
   submitTeacherBasicInformation(value): Observable<any> {
-    const results = this.http.post(`${environment.url}/sims/teacher_list?auth_token=` + localStorage.getItem('auth_token'), {
+    const results = this.http.post(`${environment.url}/sims/employee_list?auth_token=` + localStorage.getItem('auth_token'), {
       value
     }, {
       headers: new HttpHeaders({
@@ -20,7 +20,7 @@ export class EmployeeManagementServiceService {
     return results;
   }
   updateTeacherBasicInformation(value, id): Observable<any> {
-    const results = this.http.put(`${environment.url}/sims/teacher_detail?auth_token=` + localStorage.getItem('auth_token') + '&id=' + id, {
+    const results = this.http.put(`${environment.url}/sims/employee_detail?auth_token=` + localStorage.getItem('auth_token') + '&id=' + id, {
       value
     }, {
       headers: new HttpHeaders({
@@ -30,7 +30,7 @@ export class EmployeeManagementServiceService {
     return results;
   }
   submitTeacherBasicInformationById(id): Observable<any> {
-    const results = this.http.get(`${environment.url}/sims/teacher_detail?id=` + id + '&auth_token=' + localStorage.getItem('auth_token')
+    const results = this.http.get(`${environment.url}/sims/employee_detail?id=` + id + '&auth_token=' + localStorage.getItem('auth_token')
         , {headers: new HttpHeaders({
             AuthenticationToken: localStorage.getItem('auth_token'),
             Accept: 'application/json'
@@ -38,7 +38,7 @@ export class EmployeeManagementServiceService {
     return results;
   }
   teacherListing(current_page, per_page, designation, file_no, name, nic, status): Observable<any> {
-    let results = this.http.get(`${environment.url}/sims/teacher_list?auth_token=` + localStorage.getItem('auth_token') + '&page=' + current_page + '&per_page=' + per_page + '&designation=' + designation + '&file_no=' + file_no + '&name=' + name + '&nic=' + nic + '&status=' + status
+    let results = this.http.get(`${environment.url}/sims/employee_list?auth_token=` + localStorage.getItem('auth_token') + '&page=' + current_page + '&per_page=' + per_page + '&designation=' + designation + '&file_no=' + file_no + '&name=' + name + '&nic=' + nic + '&status=' + status
         , {
           headers: new HttpHeaders({
             Accept: 'application/json'
@@ -47,7 +47,7 @@ export class EmployeeManagementServiceService {
     return results;
   }
   addEducation(value, id) {
-    const results = this.http.post(`${environment.url}/sims/teacher_education?auth_token=` + localStorage.getItem('auth_token') + '&id=' + id, {
+    const results = this.http.post(`${environment.url}/sims/employee_education?auth_token=` + localStorage.getItem('auth_token') + '&id=' + id, {
       value
     }, {
       headers: new HttpHeaders({
@@ -57,7 +57,7 @@ export class EmployeeManagementServiceService {
     return results;
   }
   updateEducation(value, id) {
-    const results = this.http.put(`${environment.url}/sims/teacher_education_detail?auth_token=` + localStorage.getItem('auth_token') + '&id=' + id, {
+    const results = this.http.put(`${environment.url}/sims/employee_education_detail?auth_token=` + localStorage.getItem('auth_token') + '&id=' + id, {
       value
     }, {
       headers: new HttpHeaders({
@@ -67,7 +67,7 @@ export class EmployeeManagementServiceService {
     return results;
   }
   educationList(id) {
-    const results = this.http.get(`${environment.url}/sims/teacher_education?id=` + id + '&auth_token=' + localStorage.getItem('auth_token')
+    const results = this.http.get(`${environment.url}/sims/employee_education?id=` + id + '&auth_token=' + localStorage.getItem('auth_token')
         , {headers: new HttpHeaders({
             AuthenticationToken: localStorage.getItem('auth_token'),
             Accept: 'application/json'
@@ -75,7 +75,7 @@ export class EmployeeManagementServiceService {
     return results;
   }
   getSingleeducationDetail(id): Observable<any> {
-    const results = this.http.get(`${environment.url}/sims/teacher_education_detail?id=` + id + '&auth_token=' + localStorage.getItem('auth_token')
+    const results = this.http.get(`${environment.url}/sims/employee_education_detail?id=` + id + '&auth_token=' + localStorage.getItem('auth_token')
         , {headers: new HttpHeaders({
             AuthenticationToken: localStorage.getItem('auth_token'),
             Accept: 'application/json'
@@ -83,7 +83,7 @@ export class EmployeeManagementServiceService {
     return results;
   }
   addProfessionalExperience(value, id) {
-    const results = this.http.post(`${environment.url}/sims/teacher_professional_exp?auth_token=` + localStorage.getItem('auth_token') + '&id=' + id, {
+    const results = this.http.post(`${environment.url}/sims/employee_professional_exp?auth_token=` + localStorage.getItem('auth_token') + '&id=' + id, {
       value
     }, {
       headers: new HttpHeaders({
@@ -93,7 +93,7 @@ export class EmployeeManagementServiceService {
     return results;
   }
   updateProfessionalExperience(value, id) {
-    const results = this.http.put(`${environment.url}/sims/teacher_profession_exp_detail?auth_token=` + localStorage.getItem('auth_token') + '&id=' + id, {
+    const results = this.http.put(`${environment.url}/sims/employee_profession_exp_detail?auth_token=` + localStorage.getItem('auth_token') + '&id=' + id, {
       value
     }, {
       headers: new HttpHeaders({
@@ -103,7 +103,7 @@ export class EmployeeManagementServiceService {
     return results;
   }
   ProfessionalExperienceList(id) {
-    const results = this.http.get(`${environment.url}/sims/teacher_professional_exp?id=` + id + '&auth_token=' + localStorage.getItem('auth_token')
+    const results = this.http.get(`${environment.url}/sims/employee_professional_exp?id=` + id + '&auth_token=' + localStorage.getItem('auth_token')
         , {headers: new HttpHeaders({
             AuthenticationToken: localStorage.getItem('auth_token'),
             Accept: 'application/json'
@@ -111,7 +111,7 @@ export class EmployeeManagementServiceService {
     return results;
   }
   getSingleProfessionalExperienceDetail(id): Observable<any> {
-    const results = this.http.get(`${environment.url}/sims/teacher_profession_exp_detail?id=` + id + '&auth_token=' + localStorage.getItem('auth_token')
+    const results = this.http.get(`${environment.url}/sims/employee_profession_exp_detail?id=` + id + '&auth_token=' + localStorage.getItem('auth_token')
         , {headers: new HttpHeaders({
             AuthenticationToken: localStorage.getItem('auth_token'),
             Accept: 'application/json'
